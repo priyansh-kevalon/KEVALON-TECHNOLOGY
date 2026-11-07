@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Briefcase,
@@ -11,8 +11,20 @@ import {
   Users2,
   TrendingUp,
   Cpu,
+  X,
+  User,
+  Mail,
+  Phone,
+  Linkedin,
+  Globe,
+  UploadCloud,
+  Send,
+  AlertCircle,
+  FileText,
+  Check,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import api from '../services/api';
 
 const fullTimeJobs = [
   {
@@ -123,8 +135,130 @@ const perks = [
   'Mentorship from Senior Full-Stack Architects',
 ];
 
+const allRolesList = [
+  ...fullTimeJobs.map((j) => j.title),
+  ...internshipJobs.map((j) => j.title),
+  'Other / Spontaneous Application',
+];
+
 export default function Careers() {
   const [activeTab, setActiveTab] = useState('full-time');
+
+  // Application Modal State
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    linkedinUrl: '',
+    portfolioUrl: '',
+    roleApplied: '',
+    resumeFileName: '',
+  });
+
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [dragOver, setDragOver] = useState(false);
+  const [status, setStatus] = useState({
+    submitting: false,
+    success: false,
+    error: null,
+  });
+
+  const fileInputRef = useRef(null);
+
+  // Lock background scroll when modal is open
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isModalOpen]);
+
+  // Open modal with preselected role
+  const handleOpenApplyModal = (roleTitle = '') => {
+    setFormData((prev) => ({
+      ...prev,
+      roleApplied: roleTitle || fullTimeJobs[0].title,
+    }));
+    setStatus({ submitting: false, success: false, error: null });
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleChange = (e) => {
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setSelectedFile(file);
+      setFormData((prev) => ({ ...prev, resumeFileName: file.name }));
+    }
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    setDragOver(false);
+    const file = e.dataTransfer.files?.[0];
+    if (file) {
+      setSelectedFile(file);
+      setFormData((prev) => ({ ...prev, resumeFileName: file.name }));
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!formData.roleApplied) {
+      setStatus({ submitting: false, success: false, error: 'Please select a role to apply for.' });
+      return;
+    }
+
+    setStatus({ submitting: true, success: false, error: null });
+
+    try {
+      await api.post('/jobs/apply', {
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        phone: formData.phone,
+        linkedinUrl: formData.linkedinUrl,
+        portfolioUrl: formData.portfolioUrl,
+        roleApplied: formData.roleApplied,
+        resumeFileName: formData.resumeFileName || selectedFile?.name || 'Resume_Attached.pdf',
+      });
+
+      setStatus({ submitting: false, success: true, error: null });
+      setFormData({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        linkedinUrl: '',
+        portfolioUrl: '',
+        roleApplied: '',
+        resumeFileName: '',
+      });
+      setSelectedFile(null);
+    } catch (err) {
+      setStatus({
+        submitting: false,
+        success: false,
+        error: err.message || 'Could not submit application. Please email careers@kevalontechnology.in directly.',
+      });
+    }
+  };
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 space-y-16 sm:space-y-20">
@@ -305,15 +439,16 @@ export default function Careers() {
                 </div>
 
                 <div className="shrink-0 flex items-center">
-                  <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}>
-                    <Link
-                      to="/contact"
-                      className="kevalon-btn-primary !px-6 !py-3 text-xs uppercase tracking-wider font-bold text-white flex items-center gap-2 shadow-sm"
-                    >
-                      <span>Apply Now</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    </Link>
-                  </motion.div>
+                  <motion.button
+                    whileHover={{ scale: 1.04 }}
+                    whileTap={{ scale: 0.96 }}
+                    type="button"
+                    onClick={() => handleOpenApplyModal(job.title)}
+                    className="kevalon-btn-primary !px-6 !py-3 text-xs uppercase tracking-wider font-bold text-white flex items-center gap-2 shadow-sm cursor-pointer"
+                  >
+                    <span>Apply Now</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </motion.button>
                 </div>
               </motion.div>
             ))}
@@ -327,23 +462,349 @@ export default function Careers() {
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true, margin: '-50px' }}
         transition={{ duration: 0.6 }}
-        className="p-8 rounded-3xl [background:linear-gradient(135deg,#FFFFFF_0%,#F0F8FA_50%,#E6F6F8_100%)] text-[#034665] border border-slate-200 shadow-md text-center space-y-2"
+        className="p-8 sm:p-10 rounded-3xl [background:linear-gradient(135deg,#FFFFFF_0%,#F0F8FA_50%,#E6F6F8_100%)] text-[#034665] border border-slate-200 shadow-md text-center space-y-4"
       >
-        <h3 className="font-heading font-extrabold text-2xl text-[#034665]">
+        <h3 className="font-heading font-extrabold text-2xl sm:text-3xl text-[#034665]">
           Don't see a role that matches your profile?
         </h3>
         <p className="text-sm text-slate-600 max-w-lg mx-auto">
-          We welcome spontaneous applications from talented engineers, designers, and marketers. Send your resume and portfolio directly to:
+          We welcome spontaneous applications from talented engineers, designers, and marketers. Submit your resume directly using our application portal:
         </p>
-        <div className="pt-2">
+        <div className="pt-1 flex flex-wrap items-center justify-center gap-4">
+          <motion.button
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.96 }}
+            type="button"
+            onClick={() => handleOpenApplyModal('Other / Spontaneous Application')}
+            className="kevalon-btn-primary !px-7 !py-3.5 text-xs font-bold uppercase tracking-wider text-white shadow-md flex items-center gap-2"
+          >
+            <span>Submit Spontaneous Application</span>
+            <ArrowRight className="w-4 h-4" />
+          </motion.button>
           <a
             href="mailto:careers@kevalontechnology.in"
-            className="text-base font-bold text-[#0A8FB6] hover:text-[#034665] underline"
+            className="text-sm font-bold text-[#0A8FB6] hover:text-[#034665] underline"
           >
-            careers@kevalontechnology.in
+            Or email careers@kevalontechnology.in
           </a>
         </div>
       </motion.div>
+
+      {/* ============================================================== */}
+      {/* 🚀 SUBMIT YOUR APPLICATION MODAL (EXACT ACCORDING TO USER IMAGE) */}
+      {/* ============================================================== */}
+      <AnimatePresence>
+        {isModalOpen && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={handleCloseModal}
+              className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm"
+            />
+
+            {/* Modal Box */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 15 }}
+              transition={{ duration: 0.25, ease: 'easeOut' }}
+              className="relative w-full max-w-xl bg-white rounded-3xl border border-slate-200 shadow-2xl overflow-hidden z-10 max-h-[92vh] flex flex-col"
+            >
+              {/* Modal Top Accent Line */}
+              <div className="h-1.5 bg-gradient-to-r from-[#034665] via-[#0A8FB6] to-[#61BBC5] shrink-0" />
+
+              {/* Modal Header */}
+              <div className="p-6 sm:p-8 pb-4 border-b border-slate-100 flex items-start justify-between">
+                <div>
+                  <h2 className="font-heading font-extrabold text-2xl sm:text-3xl text-[#034665] tracking-tight">
+                    Submit Your Application
+                  </h2>
+                  <p className="text-xs sm:text-sm text-slate-500 mt-1 flex items-center gap-1 font-medium">
+                    All fields marked <span className="text-[#0A8FB6] font-bold">*</span> are required.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={handleCloseModal}
+                  className="p-2 rounded-full bg-slate-100 text-slate-500 hover:text-slate-800 hover:bg-slate-200 transition-colors focus:outline-none"
+                  aria-label="Close Modal"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              {/* Modal Scrollable Body */}
+              <div className="p-6 sm:p-8 overflow-y-auto space-y-5">
+                {/* Status Messages */}
+                {status.success && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-sm flex items-start gap-3"
+                  >
+                    <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
+                    <div>
+                      <strong className="block font-semibold">Application Submitted Successfully!</strong>
+                      Thank you for applying to Kevalon Technology. Our HR team will review your profile and contact you within 24–48 hours.
+                    </div>
+                  </motion.div>
+                )}
+
+                {status.error && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="p-4 rounded-2xl bg-rose-50 border border-rose-200 text-rose-800 text-sm flex items-start gap-3"
+                  >
+                    <AlertCircle className="w-5 h-5 text-rose-600 shrink-0 mt-0.5" />
+                    <div>{status.error}</div>
+                  </motion.div>
+                )}
+
+                <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
+                  {/* Row 1: First name & Last name */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                        First name <span className="text-[#0A8FB6]">*</span>
+                      </label>
+                      <div className="relative">
+                        <User className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                        <input
+                          type="text"
+                          name="firstName"
+                          required
+                          value={formData.firstName}
+                          onChange={handleChange}
+                          placeholder="Alex"
+                          className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-800 placeholder-slate-400 text-sm focus:outline-none focus:border-[#0A8FB6] focus:bg-white focus:ring-2 focus:ring-[#0A8FB6]/20 transition-all"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                        Last name <span className="text-[#0A8FB6]">*</span>
+                      </label>
+                      <div className="relative">
+                        <User className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                        <input
+                          type="text"
+                          name="lastName"
+                          required
+                          value={formData.lastName}
+                          onChange={handleChange}
+                          placeholder="Chen"
+                          className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-800 placeholder-slate-400 text-sm focus:outline-none focus:border-[#0A8FB6] focus:bg-white focus:ring-2 focus:ring-[#0A8FB6]/20 transition-all"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Row 2: Email address & Phone number */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                        Email address <span className="text-[#0A8FB6]">*</span>
+                      </label>
+                      <div className="relative">
+                        <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                        <input
+                          type="email"
+                          name="email"
+                          required
+                          value={formData.email}
+                          onChange={handleChange}
+                          placeholder="alex@example.com"
+                          className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-800 placeholder-slate-400 text-sm focus:outline-none focus:border-[#0A8FB6] focus:bg-white focus:ring-2 focus:ring-[#0A8FB6]/20 transition-all"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                        Phone number <span className="text-[#0A8FB6]">*</span>
+                      </label>
+                      <div className="relative">
+                        <Phone className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                        <input
+                          type="tel"
+                          name="phone"
+                          required
+                          value={formData.phone}
+                          onChange={handleChange}
+                          placeholder="+91 98765 43210"
+                          className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-800 placeholder-slate-400 text-sm focus:outline-none focus:border-[#0A8FB6] focus:bg-white focus:ring-2 focus:ring-[#0A8FB6]/20 transition-all"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Row 3: LinkedIn Profile & Portfolio URL */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                        LinkedIn Profile
+                      </label>
+                      <div className="relative">
+                        <Linkedin className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                        <input
+                          type="text"
+                          name="linkedinUrl"
+                          value={formData.linkedinUrl}
+                          onChange={handleChange}
+                          placeholder="linkedin.com/in/yourname"
+                          className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-800 placeholder-slate-400 text-sm focus:outline-none focus:border-[#0A8FB6] focus:bg-white focus:ring-2 focus:ring-[#0A8FB6]/20 transition-all"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                        Portfolio URL
+                      </label>
+                      <div className="relative">
+                        <Globe className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                        <input
+                          type="text"
+                          name="portfolioUrl"
+                          value={formData.portfolioUrl}
+                          onChange={handleChange}
+                          placeholder="yoursite.com"
+                          className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-800 placeholder-slate-400 text-sm focus:outline-none focus:border-[#0A8FB6] focus:bg-white focus:ring-2 focus:ring-[#0A8FB6]/20 transition-all"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Row 4: Applying for * */}
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                      Applying for <span className="text-[#0A8FB6]">*</span>
+                    </label>
+                    <div className="relative">
+                      <Briefcase className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                      <select
+                        name="roleApplied"
+                        required
+                        value={formData.roleApplied}
+                        onChange={handleChange}
+                        className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-800 text-sm focus:outline-none focus:border-[#0A8FB6] focus:bg-white focus:ring-2 focus:ring-[#0A8FB6]/20 transition-all appearance-none cursor-pointer"
+                      >
+                        <option value="" disabled>
+                          Select a role
+                        </option>
+                        {allRolesList.map((role) => (
+                          <option key={role} value={role}>
+                            {role}
+                          </option>
+                        ))}
+                      </select>
+                      <div className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400 text-xs">
+                        ▼
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Row 5: Resume / CV * (Drag & Drop or Click to Upload) */}
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                      Resume / CV <span className="text-[#0A8FB6]">*</span>
+                    </label>
+
+                    <input
+                      type="file"
+                      ref={fileInputRef}
+                      onChange={handleFileChange}
+                      accept=".pdf,.doc,.docx"
+                      className="hidden"
+                    />
+
+                    <div
+                      onDragOver={(e) => {
+                        e.preventDefault();
+                        setDragOver(true);
+                      }}
+                      onDragLeave={() => setDragOver(false)}
+                      onDrop={handleDrop}
+                      onClick={() => fileInputRef.current?.click()}
+                      className={`border-2 border-dashed rounded-2xl p-4 sm:p-5 flex items-center gap-4 cursor-pointer transition-all ${
+                        dragOver
+                          ? 'border-[#0A8FB6] bg-[#E6F6F8]'
+                          : selectedFile
+                          ? 'border-emerald-400 bg-emerald-50/50'
+                          : 'border-[#0A8FB6]/35 bg-[#F0F8FA]/60 hover:bg-[#E6F6F8] hover:border-[#0A8FB6]'
+                      }`}
+                    >
+                      {/* Upload Icon Box */}
+                      <div
+                        className={`w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center text-white shadow-md shrink-0 transition-transform ${
+                          selectedFile ? 'bg-emerald-600' : 'bg-[#0A8FB6]'
+                        }`}
+                      >
+                        {selectedFile ? (
+                          <Check className="w-6 h-6 sm:w-7 sm:h-7" />
+                        ) : (
+                          <UploadCloud className="w-6 h-6 sm:w-7 sm:h-7" />
+                        )}
+                      </div>
+
+                      <div className="text-left flex-grow">
+                        {selectedFile ? (
+                          <>
+                            <div className="text-xs sm:text-sm font-bold text-emerald-800 flex items-center gap-1.5">
+                              <FileText className="w-4 h-4 text-emerald-600" />
+                              <span className="truncate max-w-[240px] sm:max-w-xs">{selectedFile.name}</span>
+                            </div>
+                            <div className="text-[11px] text-emerald-600 mt-0.5">
+                              {(selectedFile.size / (1024 * 1024)).toFixed(2)} MB • Ready to submit (Click to replace)
+                            </div>
+                          </>
+                        ) : (
+                          <>
+                            <div className="text-xs sm:text-sm font-bold text-[#034665]">
+                              Drag & drop or click to upload
+                            </div>
+                            <div className="text-[11px] text-slate-500 mt-0.5">
+                              PDF, DOC, DOCX, max 10 MB
+                            </div>
+                          </>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Submit Button */}
+                  <div className="pt-2">
+                    <motion.button
+                      whileHover={{ scale: 1.01 }}
+                      whileTap={{ scale: 0.98 }}
+                      type="submit"
+                      disabled={status.submitting}
+                      className="w-full py-3.5 px-6 rounded-full text-white font-bold text-sm tracking-wider uppercase flex items-center justify-center gap-2 shadow-lg hover:shadow-xl transition-all disabled:opacity-50 cursor-pointer"
+                      style={{
+                        background: 'linear-gradient(137deg, #0A8FB6 0%, #034665 100%)',
+                      }}
+                    >
+                      {status.submitting ? (
+                        <span>Submitting Application...</span>
+                      ) : (
+                        <>
+                          <span>Submit Application</span>
+                          <Send className="w-4 h-4" />
+                        </>
+                      )}
+                    </motion.button>
+                  </div>
+                </form>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

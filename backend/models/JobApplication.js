@@ -2,9 +2,18 @@ import mongoose from 'mongoose';
 
 const jobApplicationSchema = new mongoose.Schema(
   {
-    candidateName: {
+    firstName: {
       type: String,
       required: true,
+      trim: true,
+    },
+    lastName: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    candidateName: {
+      type: String,
       trim: true,
     },
     email: {
@@ -15,22 +24,27 @@ const jobApplicationSchema = new mongoose.Schema(
     },
     phone: {
       type: String,
+      required: true,
+      trim: true,
+    },
+    linkedinUrl: {
+      type: String,
+      trim: true,
+    },
+    portfolioUrl: {
+      type: String,
       trim: true,
     },
     roleApplied: {
       type: String,
       required: true,
     },
-    portfolioUrl: {
+    resumeFileName: {
       type: String,
-      trim: true,
     },
     resumeUrl: {
       type: String,
       trim: true,
-    },
-    coverLetter: {
-      type: String,
     },
     status: {
       type: String,
@@ -42,6 +56,13 @@ const jobApplicationSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+jobApplicationSchema.pre('save', function (next) {
+  if (this.firstName && this.lastName) {
+    this.candidateName = `${this.firstName} ${this.lastName}`;
+  }
+  next();
+});
 
 const JobApplication =
   mongoose.models.JobApplication || mongoose.model('JobApplication', jobApplicationSchema);
