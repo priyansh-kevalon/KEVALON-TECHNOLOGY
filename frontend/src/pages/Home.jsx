@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   Code2,
   Smartphone,
@@ -161,7 +161,7 @@ export default function Home() {
 
   return (
     <div className="space-y-24 sm:space-y-32 pb-24 overflow-hidden">
-      {/* 1. ASYMMETRIC HERO SECTION (Modern Light Theme) */}
+      {/* 1. ASYMMETRIC HERO SECTION WITH SMOOTH ANIMATIONS */}
       <section className="relative pt-6 pb-16 lg:pt-12 lg:pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           {/* Left Column: Editorial Headline & Actions */}
@@ -169,8 +169,8 @@ export default function Home() {
             <motion.div
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4 }}
-              className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#E6F6F8] border border-[#0A8FB6]/30 shadow-sm"
+              transition={{ duration: 0.5 }}
+              className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#E6F6F8] border border-[#0A8FB6]/30 shadow-xs"
             >
               <span className="w-2 h-2 rounded-full bg-[#0A8FB6] animate-pulse" />
               <span className="text-xs font-bold uppercase tracking-wider text-[#034665]">
@@ -179,9 +179,9 @@ export default function Home() {
             </motion.div>
 
             <motion.h1
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 25 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
               className="font-heading font-extrabold text-4xl sm:text-6xl lg:text-[64px] text-[#034665] tracking-tight leading-[1.12]"
             >
               Custom Web, Mobile App & AI Systems Built For{' '}
@@ -193,7 +193,7 @@ export default function Home() {
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
               className="text-base sm:text-lg text-slate-600 max-w-2xl font-normal leading-relaxed"
             >
               We engineer enterprise-grade web applications, cross-platform mobile apps, cloud ERPs, and AI automation that empower founders to outpace competition and scale revenue.
@@ -203,33 +203,39 @@ export default function Home() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
               className="flex flex-wrap items-center gap-3.5 pt-2"
             >
-              <Link
-                to="/contact"
-                className="kevalon-btn-primary !px-7 !py-3.5 text-sm uppercase tracking-wider font-bold flex items-center gap-2 shadow-md hover:shadow-lg transition-all"
-              >
-                <span>Discuss Your Project</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
+              <motion.div whileHover={{ y: -3, scale: 1.02 }} whileTap={{ scale: 0.97 }}>
+                <Link
+                  to="/contact"
+                  className="kevalon-btn-primary !px-7 !py-3.5 text-sm uppercase tracking-wider font-bold flex items-center gap-2 shadow-md hover:shadow-lg transition-all"
+                >
+                  <span>Discuss Your Project</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </motion.div>
 
-              <Link
-                to="/portfolio"
-                className="inline-flex items-center justify-center px-6 py-3.5 rounded-full text-sm font-bold text-[#034665] bg-white border border-slate-300 hover:border-[#0A8FB6] hover:bg-[#F0F8FA] transition-all shadow-sm"
-              >
-                View Portfolio
-              </Link>
+              <motion.div whileHover={{ y: -3, scale: 1.02 }} whileTap={{ scale: 0.97 }}>
+                <Link
+                  to="/portfolio"
+                  className="inline-flex items-center justify-center px-6 py-3.5 rounded-full text-sm font-bold text-[#034665] bg-white border border-slate-300 hover:border-[#0A8FB6] hover:bg-[#F0F8FA] transition-all shadow-xs"
+                >
+                  View Portfolio
+                </Link>
+              </motion.div>
 
-              <a
-                href="https://wa.link/a02fdn"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-3.5 rounded-full text-sm font-semibold text-[#15803d] bg-[#f0fdf4] border border-[#bbf7d0] hover:bg-[#dcfce7] transition-all"
-              >
-                <MessageSquare className="w-4 h-4 text-[#16a34a]" />
-                <span>WhatsApp Us</span>
-              </a>
+              <motion.div whileHover={{ y: -3, scale: 1.02 }} whileTap={{ scale: 0.97 }}>
+                <a
+                  href="https://wa.link/a02fdn"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 px-5 py-3.5 rounded-full text-sm font-semibold text-[#15803d] bg-[#f0fdf4] border border-[#bbf7d0] hover:bg-[#dcfce7] transition-all shadow-xs"
+                >
+                  <MessageSquare className="w-4 h-4 text-[#16a34a]" />
+                  <span>WhatsApp Us</span>
+                </a>
+              </motion.div>
             </motion.div>
 
             {/* Live Gateway Indicator */}
@@ -258,7 +264,7 @@ export default function Home() {
             <motion.div
               initial={{ opacity: 0, y: 25 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.5 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
               className="pt-4 grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-2xl"
             >
               {[
@@ -267,9 +273,11 @@ export default function Home() {
                 { val: '10+', lbl: 'IT Capabilities' },
                 { val: '24/7', lbl: 'Active SLA Support' },
               ].map((m, idx) => (
-                <div
+                <motion.div
                   key={idx}
-                  className="p-3.5 rounded-xl bg-white border border-slate-200 shadow-sm"
+                  whileHover={{ y: -4, borderColor: 'rgba(10, 143, 182, 0.4)' }}
+                  transition={{ duration: 0.2 }}
+                  className="p-3.5 rounded-xl bg-white border border-slate-200 shadow-xs cursor-default"
                 >
                   <div className="font-heading font-extrabold text-2xl text-[#034665]">
                     {m.val}
@@ -277,19 +285,29 @@ export default function Home() {
                   <div className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider mt-0.5">
                     {m.lbl}
                   </div>
-                </div>
+                </motion.div>
               ))}
             </motion.div>
           </div>
 
-          {/* Right Column: Interactive Tech Showcase Card */}
+          {/* Right Column: Floating Interactive Tech Showcase Card */}
           <motion.div
-            initial={{ opacity: 0, x: 25 }}
+            initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.7, delay: 0.25 }}
             className="lg:col-span-5"
           >
-            <div className="light-card p-6 sm:p-7 relative overflow-hidden bg-white border-2 border-slate-200/80 shadow-xl">
+            <motion.div
+              animate={{
+                y: [0, -8, 0],
+              }}
+              transition={{
+                duration: 7,
+                repeat: Infinity,
+                ease: 'easeInOut',
+              }}
+              className="light-card p-6 sm:p-7 relative overflow-hidden bg-white border-2 border-slate-200/90 shadow-xl"
+            >
               {/* Top Accent Strip */}
               <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#034665] via-[#0A8FB6] to-[#61BBC5]" />
 
@@ -303,13 +321,14 @@ export default function Home() {
                     kevalon-stack-v2.6
                   </span>
                 </div>
-                <span className="text-[11px] font-semibold text-[#0A8FB6] bg-[#E6F6F8] px-2.5 py-0.5 rounded-full">
+                <span className="text-[11px] font-semibold text-[#0A8FB6] bg-[#E6F6F8] px-2.5 py-0.5 rounded-full flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#0A8FB6] animate-pulse" />
                   Production Ready
                 </span>
               </div>
 
               {/* Interactive Tabs */}
-              <div className="mt-4 flex gap-1.5 p-1 bg-slate-100 rounded-xl">
+              <div className="mt-4 flex gap-1.5 p-1 bg-slate-100 rounded-xl relative">
                 {[
                   { id: 'web', label: 'Web Platform' },
                   { id: 'mobile', label: 'Mobile Apps' },
@@ -318,123 +337,153 @@ export default function Home() {
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
-                    className={`flex-1 py-1.5 text-xs font-bold rounded-lg transition-all ${
+                    className={`relative flex-1 py-1.5 text-xs font-bold rounded-lg transition-all z-10 ${
                       activeTab === tab.id
-                        ? 'bg-white text-[#034665] shadow-xs'
+                        ? 'text-[#034665]'
                         : 'text-slate-600 hover:text-slate-900'
                     }`}
                   >
-                    {tab.label}
+                    {activeTab === tab.id && (
+                      <motion.div
+                        layoutId="activeTabBadge"
+                        className="absolute inset-0 bg-white rounded-lg shadow-xs -z-10"
+                        transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                      />
+                    )}
+                    <span>{tab.label}</span>
                   </button>
                 ))}
               </div>
 
-              {/* Dynamic Tab Content */}
-              <div className="mt-5 space-y-4">
-                {activeTab === 'web' && (
-                  <div className="space-y-3">
-                    <div className="flex items-start justify-between p-3 rounded-xl bg-[#F8FAFC] border border-slate-200">
-                      <div>
-                        <div className="text-xs font-bold text-[#034665]">Frontend Engine</div>
-                        <div className="text-[11px] text-slate-500">React 19 • Next.js • Tailwind CSS</div>
+              {/* Dynamic Animated Tab Content */}
+              <div className="mt-5 min-h-[190px]">
+                <AnimatePresence mode="wait">
+                  {activeTab === 'web' && (
+                    <motion.div
+                      key="web"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.25 }}
+                      className="space-y-3"
+                    >
+                      <div className="flex items-start justify-between p-3 rounded-xl bg-[#F8FAFC] border border-slate-200">
+                        <div>
+                          <div className="text-xs font-bold text-[#034665]">Frontend Engine</div>
+                          <div className="text-[11px] text-slate-500">React 19 • Next.js • Tailwind CSS</div>
+                        </div>
+                        <span className="text-[10px] font-mono text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded">
+                          0.4s FCP
+                        </span>
                       </div>
-                      <span className="text-[10px] font-mono text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded">
-                        0.4s FCP
-                      </span>
-                    </div>
 
-                    <div className="flex items-start justify-between p-3 rounded-xl bg-[#F8FAFC] border border-slate-200">
-                      <div>
-                        <div className="text-xs font-bold text-[#034665]">Backend & APIs</div>
-                        <div className="text-[11px] text-slate-500">Node.js • Express • RESTful • GraphQL</div>
+                      <div className="flex items-start justify-between p-3 rounded-xl bg-[#F8FAFC] border border-slate-200">
+                        <div>
+                          <div className="text-xs font-bold text-[#034665]">Backend & APIs</div>
+                          <div className="text-[11px] text-slate-500">Node.js • Express • RESTful • GraphQL</div>
+                        </div>
+                        <span className="text-[10px] font-mono text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded">
+                          99.98% SLA
+                        </span>
                       </div>
-                      <span className="text-[10px] font-mono text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded">
-                        99.98% SLA
-                      </span>
-                    </div>
 
-                    <div className="flex items-start justify-between p-3 rounded-xl bg-[#F8FAFC] border border-slate-200">
-                      <div>
-                        <div className="text-xs font-bold text-[#034665]">Database Tier</div>
-                        <div className="text-[11px] text-slate-500">MongoDB • PostgreSQL • Redis Cache</div>
+                      <div className="flex items-start justify-between p-3 rounded-xl bg-[#F8FAFC] border border-slate-200">
+                        <div>
+                          <div className="text-xs font-bold text-[#034665]">Database Tier</div>
+                          <div className="text-[11px] text-slate-500">MongoDB • PostgreSQL • Redis Cache</div>
+                        </div>
+                        <span className="text-[10px] font-mono text-[#0A8FB6] font-bold bg-[#E6F6F8] px-2 py-0.5 rounded">
+                          Encrypted
+                        </span>
                       </div>
-                      <span className="text-[10px] font-mono text-[#0A8FB6] font-bold bg-[#E6F6F8] px-2 py-0.5 rounded">
-                        Encrypted
-                      </span>
-                    </div>
-                  </div>
-                )}
+                    </motion.div>
+                  )}
 
-                {activeTab === 'mobile' && (
-                  <div className="space-y-3">
-                    <div className="flex items-start justify-between p-3 rounded-xl bg-[#F8FAFC] border border-slate-200">
-                      <div>
-                        <div className="text-xs font-bold text-[#034665]">Cross-Platform SDK</div>
-                        <div className="text-[11px] text-slate-500">Flutter • React Native (iOS & Android)</div>
+                  {activeTab === 'mobile' && (
+                    <motion.div
+                      key="mobile"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.25 }}
+                      className="space-y-3"
+                    >
+                      <div className="flex items-start justify-between p-3 rounded-xl bg-[#F8FAFC] border border-slate-200">
+                        <div>
+                          <div className="text-xs font-bold text-[#034665]">Cross-Platform SDK</div>
+                          <div className="text-[11px] text-slate-500">Flutter • React Native (iOS & Android)</div>
+                        </div>
+                        <span className="text-[10px] font-mono text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded">
+                          60 FPS
+                        </span>
                       </div>
-                      <span className="text-[10px] font-mono text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded">
-                        60 FPS
-                      </span>
-                    </div>
 
-                    <div className="flex items-start justify-between p-3 rounded-xl bg-[#F8FAFC] border border-slate-200">
-                      <div>
-                        <div className="text-xs font-bold text-[#034665]">Offline Sync & Data</div>
-                        <div className="text-[11px] text-slate-500">SQLite • WatermelonDB • AES-256 Storage</div>
+                      <div className="flex items-start justify-between p-3 rounded-xl bg-[#F8FAFC] border border-slate-200">
+                        <div>
+                          <div className="text-xs font-bold text-[#034665]">Offline Sync & Data</div>
+                          <div className="text-[11px] text-slate-500">SQLite • WatermelonDB • AES-256 Storage</div>
+                        </div>
+                        <span className="text-[10px] font-mono text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded">
+                          Zero-Loss
+                        </span>
                       </div>
-                      <span className="text-[10px] font-mono text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded">
-                        Zero-Loss
-                      </span>
-                    </div>
 
-                    <div className="flex items-start justify-between p-3 rounded-xl bg-[#F8FAFC] border border-slate-200">
-                      <div>
-                        <div className="text-xs font-bold text-[#034665]">Store Deployments</div>
-                        <div className="text-[11px] text-slate-500">Apple App Store & Google Play Store Publishing</div>
+                      <div className="flex items-start justify-between p-3 rounded-xl bg-[#F8FAFC] border border-slate-200">
+                        <div>
+                          <div className="text-xs font-bold text-[#034665]">Store Deployments</div>
+                          <div className="text-[11px] text-slate-500">Apple App Store & Google Play Store Publishing</div>
+                        </div>
+                        <span className="text-[10px] font-mono text-[#0A8FB6] font-bold bg-[#E6F6F8] px-2 py-0.5 rounded">
+                          Automated
+                        </span>
                       </div>
-                      <span className="text-[10px] font-mono text-[#0A8FB6] font-bold bg-[#E6F6F8] px-2 py-0.5 rounded">
-                        Automated
-                      </span>
-                    </div>
-                  </div>
-                )}
+                    </motion.div>
+                  )}
 
-                {activeTab === 'ai' && (
-                  <div className="space-y-3">
-                    <div className="flex items-start justify-between p-3 rounded-xl bg-[#F8FAFC] border border-slate-200">
-                      <div>
-                        <div className="text-xs font-bold text-[#034665]">AI Model Integration</div>
-                        <div className="text-[11px] text-slate-500">OpenAI • Gemini • Claude • LangChain</div>
+                  {activeTab === 'ai' && (
+                    <motion.div
+                      key="ai"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.25 }}
+                      className="space-y-3"
+                    >
+                      <div className="flex items-start justify-between p-3 rounded-xl bg-[#F8FAFC] border border-slate-200">
+                        <div>
+                          <div className="text-xs font-bold text-[#034665]">AI Model Integration</div>
+                          <div className="text-[11px] text-slate-500">OpenAI • Gemini • Claude • LangChain</div>
+                        </div>
+                        <span className="text-[10px] font-mono text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded">
+                          High Speed
+                        </span>
                       </div>
-                      <span className="text-[10px] font-mono text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded">
-                        High Speed
-                      </span>
-                    </div>
 
-                    <div className="flex items-start justify-between p-3 rounded-xl bg-[#F8FAFC] border border-slate-200">
-                      <div>
-                        <div className="text-xs font-bold text-[#034665]">Cloud Hosting & CI/CD</div>
-                        <div className="text-[11px] text-slate-500">AWS • Docker Containers • Nginx • Cloudflare</div>
+                      <div className="flex items-start justify-between p-3 rounded-xl bg-[#F8FAFC] border border-slate-200">
+                        <div>
+                          <div className="text-xs font-bold text-[#034665]">Cloud Hosting & CI/CD</div>
+                          <div className="text-[11px] text-slate-500">AWS • Docker Containers • Nginx • Cloudflare</div>
+                        </div>
+                        <span className="text-[10px] font-mono text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded">
+                          Auto-Scale
+                        </span>
                       </div>
-                      <span className="text-[10px] font-mono text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded">
-                        Auto-Scale
-                      </span>
-                    </div>
 
-                    <div className="flex items-start justify-between p-3 rounded-xl bg-[#F8FAFC] border border-slate-200">
-                      <div>
-                        <div className="text-xs font-bold text-[#034665]">Security Audits</div>
-                        <div className="text-[11px] text-slate-500">SSL/TLS • JWT Auth • Rate Limiting • OWASP</div>
+                      <div className="flex items-start justify-between p-3 rounded-xl bg-[#F8FAFC] border border-slate-200">
+                        <div>
+                          <div className="text-xs font-bold text-[#034665]">Security Audits</div>
+                          <div className="text-[11px] text-slate-500">SSL/TLS • JWT Auth • Rate Limiting • OWASP</div>
+                        </div>
+                        <span className="text-[10px] font-mono text-[#0A8FB6] font-bold bg-[#E6F6F8] px-2 py-0.5 rounded">
+                          Hardened
+                        </span>
                       </div>
-                      <span className="text-[10px] font-mono text-[#0A8FB6] font-bold bg-[#E6F6F8] px-2 py-0.5 rounded">
-                        Hardened
-                      </span>
-                    </div>
-                  </div>
-                )}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
 
                 {/* Card Footer Feature Pill */}
-                <div className="p-3.5 rounded-xl bg-gradient-to-r from-[#034665] to-[#0A8FB6] text-white flex items-center justify-between">
+                <div className="mt-4 p-3.5 rounded-xl bg-gradient-to-r from-[#034665] to-[#0A8FB6] text-white flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <ShieldCheck className="w-4 h-4 text-[#61BBC5]" />
                     <span className="text-xs font-semibold">100% Code & IP Ownership Transferred</span>
@@ -448,14 +497,20 @@ export default function Home() {
                   </Link>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </motion.div>
         </div>
       </section>
 
-      {/* 2. DIVERSIFIED BENTO-GRID CORE CAPABILITIES (NOT standard repetitive cards) */}
+      {/* 2. DIVERSIFIED BENTO-GRID CORE CAPABILITIES WITH SCROLL REVEAL */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-14">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-50px' }}
+          transition={{ duration: 0.6 }}
+          className="text-center max-w-3xl mx-auto mb-14"
+        >
           <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-bold tracking-widest uppercase bg-[#0A8FB6]/10 text-[#0A8FB6] border border-[#0A8FB6]/20 mb-3">
             <span className="w-1.5 h-1.5 rounded-full bg-[#0A8FB6]" />
             What We Deliver
@@ -466,18 +521,28 @@ export default function Home() {
           <p className="mt-3 text-slate-600 text-base">
             From single-page web platforms to complex enterprise ERPs and AI automation, engineered for maximum performance.
           </p>
-        </div>
+        </motion.div>
 
         {/* Bento Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6">
           {/* Tile 1: Hero Large Web Development Card (Spans 8 cols on LG) */}
-          <div className="lg:col-span-8 light-card p-8 relative overflow-hidden bg-white border border-slate-200 flex flex-col justify-between group">
+          <motion.div
+            initial={{ opacity: 0, y: 35 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-50px' }}
+            whileHover={{ y: -6 }}
+            transition={{ duration: 0.5 }}
+            className="lg:col-span-8 light-card p-8 relative overflow-hidden bg-white border border-slate-200 flex flex-col justify-between group shadow-sm hover:shadow-xl transition-shadow"
+          >
             <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#0A8FB6] to-[#034665]" />
             <div>
               <div className="flex items-center justify-between mb-5">
-                <div className="w-12 h-12 rounded-xl bg-[#E6F6F8] border border-[#0A8FB6]/20 flex items-center justify-center text-[#0A8FB6] group-hover:bg-[#0A8FB6] group-hover:text-white transition-all">
+                <motion.div
+                  whileHover={{ rotate: 10, scale: 1.1 }}
+                  className="w-12 h-12 rounded-xl bg-[#E6F6F8] border border-[#0A8FB6]/20 flex items-center justify-center text-[#0A8FB6] group-hover:bg-[#0A8FB6] group-hover:text-white transition-colors"
+                >
                   <Code2 className="w-6 h-6" />
-                </div>
+                </motion.div>
                 <span className="text-xs font-bold uppercase tracking-wider text-[#0A8FB6] bg-[#0A8FB6]/10 px-3 py-1 rounded-full">
                   Flagship Capability
                 </span>
@@ -530,16 +595,26 @@ export default function Home() {
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
-          </div>
+          </motion.div>
 
           {/* Tile 2: Mobile App Development (Spans 4 cols on LG) */}
-          <div className="lg:col-span-4 light-card p-7 relative overflow-hidden bg-white border border-slate-200 flex flex-col justify-between group">
+          <motion.div
+            initial={{ opacity: 0, y: 35 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-50px' }}
+            whileHover={{ y: -6 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="lg:col-span-4 light-card p-7 relative overflow-hidden bg-white border border-slate-200 flex flex-col justify-between group shadow-sm hover:shadow-xl transition-shadow"
+          >
             <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#034665] to-[#0A8FB6]" />
             <div>
               <div className="flex items-center justify-between mb-4">
-                <div className="w-11 h-11 rounded-xl bg-[#E6F6F8] border border-[#0A8FB6]/20 flex items-center justify-center text-[#0A8FB6] group-hover:bg-[#0A8FB6] group-hover:text-white transition-all">
+                <motion.div
+                  whileHover={{ rotate: 10, scale: 1.1 }}
+                  className="w-11 h-11 rounded-xl bg-[#E6F6F8] border border-[#0A8FB6]/20 flex items-center justify-center text-[#0A8FB6] group-hover:bg-[#0A8FB6] group-hover:text-white transition-colors"
+                >
                   <Smartphone className="w-5 h-5" />
-                </div>
+                </motion.div>
                 <span className="text-xs font-mono font-bold text-slate-400">02</span>
               </div>
               <h3 className="font-heading font-extrabold text-xl text-[#034665] group-hover:text-[#0A8FB6] transition-colors">
@@ -568,15 +643,25 @@ export default function Home() {
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>
-          </div>
+          </motion.div>
 
           {/* Tile 3: AI & Intelligent Automation (Spans 4 cols on LG) */}
-          <div className="lg:col-span-4 light-card p-7 relative overflow-hidden bg-white border border-slate-200 flex flex-col justify-between group">
+          <motion.div
+            initial={{ opacity: 0, y: 35 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-50px' }}
+            whileHover={{ y: -6 }}
+            transition={{ duration: 0.5, delay: 0.15 }}
+            className="lg:col-span-4 light-card p-7 relative overflow-hidden bg-white border border-slate-200 flex flex-col justify-between group shadow-sm hover:shadow-xl transition-shadow"
+          >
             <div>
               <div className="flex items-center justify-between mb-4">
-                <div className="w-11 h-11 rounded-xl bg-[#E6F6F8] border border-[#0A8FB6]/20 flex items-center justify-center text-[#0A8FB6] group-hover:bg-[#0A8FB6] group-hover:text-white transition-all">
+                <motion.div
+                  whileHover={{ rotate: 10, scale: 1.1 }}
+                  className="w-11 h-11 rounded-xl bg-[#E6F6F8] border border-[#0A8FB6]/20 flex items-center justify-center text-[#0A8FB6] group-hover:bg-[#0A8FB6] group-hover:text-white transition-colors"
+                >
                   <Cpu className="w-5 h-5" />
-                </div>
+                </motion.div>
                 <span className="text-xs font-mono font-bold text-slate-400">03</span>
               </div>
               <h3 className="font-heading font-extrabold text-xl text-[#034665] group-hover:text-[#0A8FB6] transition-colors">
@@ -599,15 +684,25 @@ export default function Home() {
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>
-          </div>
+          </motion.div>
 
           {/* Tile 4: Enterprise ERP & CRM Systems (Spans 4 cols on LG) */}
-          <div className="lg:col-span-4 light-card p-7 relative overflow-hidden bg-white border border-slate-200 flex flex-col justify-between group">
+          <motion.div
+            initial={{ opacity: 0, y: 35 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-50px' }}
+            whileHover={{ y: -6 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="lg:col-span-4 light-card p-7 relative overflow-hidden bg-white border border-slate-200 flex flex-col justify-between group shadow-sm hover:shadow-xl transition-shadow"
+          >
             <div>
               <div className="flex items-center justify-between mb-4">
-                <div className="w-11 h-11 rounded-xl bg-[#E6F6F8] border border-[#0A8FB6]/20 flex items-center justify-center text-[#0A8FB6] group-hover:bg-[#0A8FB6] group-hover:text-white transition-all">
+                <motion.div
+                  whileHover={{ rotate: 10, scale: 1.1 }}
+                  className="w-11 h-11 rounded-xl bg-[#E6F6F8] border border-[#0A8FB6]/20 flex items-center justify-center text-[#0A8FB6] group-hover:bg-[#0A8FB6] group-hover:text-white transition-colors"
+                >
                   <Database className="w-5 h-5" />
-                </div>
+                </motion.div>
                 <span className="text-xs font-mono font-bold text-slate-400">04</span>
               </div>
               <h3 className="font-heading font-extrabold text-xl text-[#034665] group-hover:text-[#0A8FB6] transition-colors">
@@ -630,15 +725,25 @@ export default function Home() {
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>
-          </div>
+          </motion.div>
 
           {/* Tile 5: Cloud DevOps & APIs (Spans 4 cols on LG) */}
-          <div className="lg:col-span-4 light-card p-7 relative overflow-hidden bg-white border border-slate-200 flex flex-col justify-between group">
+          <motion.div
+            initial={{ opacity: 0, y: 35 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-50px' }}
+            whileHover={{ y: -6 }}
+            transition={{ duration: 0.5, delay: 0.25 }}
+            className="lg:col-span-4 light-card p-7 relative overflow-hidden bg-white border border-slate-200 flex flex-col justify-between group shadow-sm hover:shadow-xl transition-shadow"
+          >
             <div>
               <div className="flex items-center justify-between mb-4">
-                <div className="w-11 h-11 rounded-xl bg-[#E6F6F8] border border-[#0A8FB6]/20 flex items-center justify-center text-[#0A8FB6] group-hover:bg-[#0A8FB6] group-hover:text-white transition-all">
+                <motion.div
+                  whileHover={{ rotate: 10, scale: 1.1 }}
+                  className="w-11 h-11 rounded-xl bg-[#E6F6F8] border border-[#0A8FB6]/20 flex items-center justify-center text-[#0A8FB6] group-hover:bg-[#0A8FB6] group-hover:text-white transition-colors"
+                >
                   <Plug className="w-5 h-5" />
-                </div>
+                </motion.div>
                 <span className="text-xs font-mono font-bold text-slate-400">05</span>
               </div>
               <h3 className="font-heading font-extrabold text-xl text-[#034665] group-hover:text-[#0A8FB6] transition-colors">
@@ -661,24 +766,32 @@ export default function Home() {
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>
-          </div>
+          </motion.div>
         </div>
 
         {/* View All Services Button */}
         <div className="text-center mt-12">
-          <Link
-            to="/services"
-            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-white border border-slate-300 text-[#034665] text-xs font-bold uppercase tracking-wider hover:border-[#0A8FB6] hover:bg-[#F0F8FA] transition-all shadow-sm"
-          >
-            <span>Explore All 9 Capabilities & Tech Stacks</span>
-            <ArrowRight className="w-4 h-4 text-[#0A8FB6]" />
-          </Link>
+          <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} className="inline-block">
+            <Link
+              to="/services"
+              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-white border border-slate-300 text-[#034665] text-xs font-bold uppercase tracking-wider hover:border-[#0A8FB6] hover:bg-[#F0F8FA] transition-all shadow-sm"
+            >
+              <span>Explore All 9 Capabilities & Tech Stacks</span>
+              <ArrowRight className="w-4 h-4 text-[#0A8FB6]" />
+            </Link>
+          </motion.div>
         </div>
       </section>
 
-      {/* 3. STEPPED ROADMAP PROCESS (Horizontal Connected Timeline, NOT boxes) */}
+      {/* 3. STEPPED ROADMAP PROCESS WITH STAGGERED ENTRANCES */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-50px' }}
+          transition={{ duration: 0.6 }}
+          className="text-center max-w-3xl mx-auto mb-16"
+        >
           <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-bold tracking-widest uppercase bg-[#0A8FB6]/10 text-[#0A8FB6] border border-[#0A8FB6]/20 mb-3">
             <span className="w-1.5 h-1.5 rounded-full bg-[#0A8FB6]" />
             How We Work
@@ -689,16 +802,21 @@ export default function Home() {
           <p className="mt-3 text-slate-600 text-base">
             A battle-tested agile methodology from requirements gathering to live release and proactive SLA maintenance.
           </p>
-        </div>
+        </motion.div>
 
         {/* Numbered Stepper Path */}
         <div className="space-y-4">
           {processSteps.map((s, idx) => {
             const Icon = s.icon;
             return (
-              <div
+              <motion.div
                 key={idx}
-                className="light-card p-5 sm:p-6 bg-white border border-slate-200/90 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 hover:border-[#0A8FB6]/50 transition-all"
+                initial={{ opacity: 0, x: -25 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: '-40px' }}
+                whileHover={{ x: 6, borderColor: 'rgba(10, 143, 182, 0.5)' }}
+                transition={{ duration: 0.4, delay: idx * 0.06 }}
+                className="light-card p-5 sm:p-6 bg-white border border-slate-200/90 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 transition-colors shadow-xs"
               >
                 {/* Number & Icon */}
                 <div className="flex items-center gap-4 min-w-[280px]">
@@ -730,15 +848,21 @@ export default function Home() {
                     <span>{s.deliverable}</span>
                   </span>
                 </div>
-              </div>
+              </motion.div>
             );
           })}
         </div>
       </section>
 
-      {/* 4. WHY CHOOSE KEVALON MATRIX (Split Layout) */}
+      {/* 4. WHY CHOOSE KEVALON MATRIX */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="light-card p-8 sm:p-12 bg-white border border-slate-200">
+        <motion.div
+          initial={{ opacity: 0, y: 35 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-50px' }}
+          transition={{ duration: 0.6 }}
+          className="light-card p-8 sm:p-12 bg-white border border-slate-200 shadow-md"
+        >
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             {/* Left Column: Conviction Statement */}
             <div className="lg:col-span-6 space-y-5">
@@ -768,7 +892,14 @@ export default function Home() {
                     desc: 'A permanent physical office in Ahmedabad where you can walk in and meet our engineers anytime.',
                   },
                 ].map((item, i) => (
-                  <div key={i} className="flex items-start gap-3">
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, x: -15 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: i * 0.1 }}
+                    className="flex items-start gap-3"
+                  >
                     <div className="w-5 h-5 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 mt-0.5">
                       <CheckCircle className="w-3.5 h-3.5" />
                     </div>
@@ -776,52 +907,69 @@ export default function Home() {
                       <div className="text-sm font-bold text-[#034665]">{item.title}</div>
                       <div className="text-xs text-slate-500 leading-relaxed">{item.desc}</div>
                     </div>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </div>
 
             {/* Right Column: Key Commitments Cards */}
             <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="p-5 rounded-2xl bg-[#F8FAFC] border border-slate-200 space-y-2">
-                <Zap className="w-6 h-6 text-[#0A8FB6]" />
-                <h4 className="font-bold text-base text-[#034665]">Sub-Second Speed</h4>
-                <p className="text-xs text-slate-600 leading-relaxed">
-                  We optimize every database query, image asset, and bundle size to ensure Google Core Web Vitals score 90+.
-                </p>
-              </div>
-
-              <div className="p-5 rounded-2xl bg-[#F8FAFC] border border-slate-200 space-y-2">
-                <Lock className="w-6 h-6 text-[#034665]" />
-                <h4 className="font-bold text-base text-[#034665]">Enterprise Security</h4>
-                <p className="text-xs text-slate-600 leading-relaxed">
-                  OWASP-compliant code audits, JWT token encryption, rate limiting, and zero-trust cloud configuration.
-                </p>
-              </div>
-
-              <div className="p-5 rounded-2xl bg-[#F8FAFC] border border-slate-200 space-y-2">
-                <Building2 className="w-6 h-6 text-[#0A8FB6]" />
-                <h4 className="font-bold text-base text-[#034665]">Scalable Foundation</h4>
-                <p className="text-xs text-slate-600 leading-relaxed">
-                  Engineered to scale from your first 1,000 customers to over 1,000,000 users without architecture rewrites.
-                </p>
-              </div>
-
-              <div className="p-5 rounded-2xl bg-[#F8FAFC] border border-slate-200 space-y-2">
-                <Award className="w-6 h-6 text-[#034665]" />
-                <h4 className="font-bold text-base text-[#034665]">Guaranteed Delivery</h4>
-                <p className="text-xs text-slate-600 leading-relaxed">
-                  Milestone-based delivery timeline backed by transparent weekly sprint reviews and live staging links.
-                </p>
-              </div>
+              {[
+                {
+                  icon: Zap,
+                  title: 'Sub-Second Speed',
+                  desc: 'We optimize every database query, image asset, and bundle size to ensure Google Core Web Vitals score 90+.',
+                  color: 'text-[#0A8FB6]',
+                },
+                {
+                  icon: Lock,
+                  title: 'Enterprise Security',
+                  desc: 'OWASP-compliant code audits, JWT token encryption, rate limiting, and zero-trust cloud configuration.',
+                  color: 'text-[#034665]',
+                },
+                {
+                  icon: Building2,
+                  title: 'Scalable Foundation',
+                  desc: 'Engineered to scale from your first 1,000 customers to over 1,000,000 users without architecture rewrites.',
+                  color: 'text-[#0A8FB6]',
+                },
+                {
+                  icon: Award,
+                  title: 'Guaranteed Delivery',
+                  desc: 'Milestone-based delivery timeline backed by transparent weekly sprint reviews and live staging links.',
+                  color: 'text-[#034665]',
+                },
+              ].map((card, idx) => {
+                const Icon = card.icon;
+                return (
+                  <motion.div
+                    key={idx}
+                    whileHover={{ y: -4, borderColor: 'rgba(10, 143, 182, 0.4)' }}
+                    transition={{ duration: 0.2 }}
+                    className="p-5 rounded-2xl bg-[#F8FAFC] border border-slate-200 space-y-2 cursor-default shadow-xs"
+                  >
+                    <Icon className={`w-6 h-6 ${card.color}`} />
+                    <h4 className="font-bold text-base text-[#034665]">{card.title}</h4>
+                    <p className="text-xs text-slate-600 leading-relaxed">
+                      {card.desc}
+                    </p>
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* 5. CLIENT REVIEWS & OUTCOMES */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-14">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-50px' }}
+          transition={{ duration: 0.6 }}
+          className="text-center max-w-3xl mx-auto mb-14"
+        >
           <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-bold tracking-widest uppercase bg-[#0A8FB6]/10 text-[#0A8FB6] border border-[#0A8FB6]/20 mb-3">
             <span className="w-1.5 h-1.5 rounded-full bg-[#0A8FB6]" />
             Client Reviews
@@ -833,13 +981,18 @@ export default function Home() {
           <p className="mt-3 text-slate-600 text-base">
             Verified feedback on our technical delivery, speed, and real-world business results.
           </p>
-        </div>
+        </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {testimonials.map((t) => (
-            <div
+          {testimonials.map((t, idx) => (
+            <motion.div
               key={t.id}
-              className="light-card p-7 sm:p-8 flex flex-col justify-between bg-white border border-slate-200 relative overflow-hidden"
+              initial={{ opacity: 0, y: 25 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-40px' }}
+              whileHover={{ y: -6 }}
+              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              className="light-card p-7 sm:p-8 flex flex-col justify-between bg-white border border-slate-200 relative overflow-hidden shadow-xs hover:shadow-lg transition-shadow"
             >
               <div>
                 <div className="flex items-center justify-between mb-4">
@@ -867,14 +1020,20 @@ export default function Home() {
                   {t.service}
                 </span>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </section>
 
       {/* 6. HIGH-IMPACT PRE-FOOTER CTA */}
       <section className="max-w-5xl mx-auto px-4">
-        <div className="p-8 sm:p-12 rounded-3xl [background:linear-gradient(135deg,#FFFFFF_0%,#F0F8FA_50%,#E6F6F8_100%)] border border-slate-200 shadow-xl text-center space-y-5">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.96 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, margin: '-50px' }}
+          transition={{ duration: 0.6 }}
+          className="p-8 sm:p-12 rounded-3xl [background:linear-gradient(135deg,#FFFFFF_0%,#F0F8FA_50%,#E6F6F8_100%)] border border-slate-200 shadow-xl text-center space-y-5"
+        >
           <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase bg-[#0A8FB6]/10 text-[#0A8FB6]">
             Get In Touch
           </span>
@@ -885,21 +1044,25 @@ export default function Home() {
             Book a direct architecture consultation with our engineering team at Solaris Business Hub, Ahmedabad.
           </p>
           <div className="pt-2 flex flex-wrap justify-center gap-3">
-            <Link
-              to="/contact"
-              className="kevalon-btn-primary !px-8 !py-3.5 text-sm uppercase tracking-wider font-bold text-white shadow-md hover:shadow-lg transition-all flex items-center gap-2"
-            >
-              <span>Schedule Technical Consultation</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-            <a
-              href="tel:+919081012218"
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white text-[#034665] text-sm font-bold border border-slate-300 hover:border-[#0A8FB6] shadow-xs"
-            >
-              <span>Call +91 90810 12218</span>
-            </a>
+            <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+              <Link
+                to="/contact"
+                className="kevalon-btn-primary !px-8 !py-3.5 text-sm uppercase tracking-wider font-bold text-white shadow-md hover:shadow-lg transition-all flex items-center gap-2"
+              >
+                <span>Schedule Technical Consultation</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+              <a
+                href="tel:+919081012218"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white text-[#034665] text-sm font-bold border border-slate-300 hover:border-[#0A8FB6] shadow-xs"
+              >
+                <span>Call +91 90810 12218</span>
+              </a>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
       </section>
     </div>
   );

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ArrowUpRight, CheckCircle2, Layers, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const projects = [
   {
@@ -158,7 +159,12 @@ export default function Portfolio() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 space-y-12 sm:space-y-16">
       {/* Header */}
-      <div className="text-center max-w-3xl mx-auto space-y-4">
+      <motion.div
+        initial={{ opacity: 0, y: 25 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="text-center max-w-3xl mx-auto space-y-4"
+      >
         <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-bold tracking-widest uppercase bg-[#0A8FB6]/10 text-[#0A8FB6] border border-[#0A8FB6]/20">
           <span className="w-2 h-2 rounded-full bg-[#0A8FB6] animate-pulse" />
           <span>Proven Track Record</span>
@@ -170,85 +176,106 @@ export default function Portfolio() {
         <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
           Explore how Kevalon Technology engineers high-impact web apps, mobile solutions, games, and enterprise CRMs for businesses worldwide.
         </p>
-      </div>
+      </motion.div>
 
-      {/* Category Filter Tabs */}
+      {/* Category Filter Tabs with Sliding Animation */}
       <div className="flex flex-wrap items-center justify-center gap-2">
         {categories.map((cat) => (
           <button
             key={cat}
             onClick={() => setActiveCategory(cat)}
-            className={`px-5 py-2 rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider transition-all duration-200 ${
+            className={`relative px-5 py-2 rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider transition-all duration-200 ${
               activeCategory === cat
-                ? 'kevalon-btn-primary text-white shadow-sm'
+                ? 'text-white'
                 : 'bg-white text-slate-600 hover:text-[#034665] border border-slate-200 hover:border-[#0A8FB6]'
             }`}
           >
-            {cat}
+            {activeCategory === cat && (
+              <motion.div
+                layoutId="activePortfolioPill"
+                className="absolute inset-0 kevalon-btn-primary rounded-full -z-10 shadow-sm"
+                transition={{ type: 'spring', stiffness: 350, damping: 25 }}
+              />
+            )}
+            <span>{cat}</span>
           </button>
         ))}
       </div>
 
-      {/* Projects Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-        {filtered.map((proj) => (
-          <div
-            key={proj.id}
-            className="light-card relative overflow-hidden p-6 sm:p-7 flex flex-col justify-between group bg-white border border-slate-200 hover:border-[#0A8FB6]/50 transition-all"
-          >
-            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#034665] to-[#0A8FB6]" />
+      {/* Projects Grid with Motion Layout */}
+      <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        <AnimatePresence>
+          {filtered.map((proj, idx) => (
+            <motion.div
+              layout
+              key={proj.id}
+              initial={{ opacity: 0, scale: 0.94 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.94 }}
+              whileHover={{ y: -6 }}
+              transition={{ duration: 0.35, delay: idx * 0.05 }}
+              className="light-card relative overflow-hidden p-6 sm:p-7 flex flex-col justify-between group bg-white border border-slate-200 hover:border-[#0A8FB6]/50 shadow-xs hover:shadow-xl transition-all"
+            >
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#034665] to-[#0A8FB6]" />
 
-            <div>
-              <div className="flex items-center justify-between mb-4">
-                <span className="text-[11px] font-bold uppercase tracking-widest px-3 py-1 rounded-full bg-[#E6F6F8] text-[#0A8FB6] border border-[#0A8FB6]/20">
-                  {proj.category}
-                </span>
-                <span className="text-xs text-slate-400 font-semibold">{proj.duration}</span>
-              </div>
-
-              <h3 className="font-heading font-bold text-2xl text-[#034665] group-hover:text-[#0A8FB6] transition-colors mb-2">
-                {proj.title}
-              </h3>
-              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-4">
-                {proj.desc}
-              </p>
-
-              <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 mb-5">
-                <span className="text-[11px] font-bold uppercase tracking-wider text-[#0A8FB6] block mb-1">
-                  Key Deliverable & Outcome:
-                </span>
-                <span className="text-xs text-slate-700 font-medium leading-relaxed block">
-                  {proj.results}
-                </span>
-              </div>
-            </div>
-
-            <div>
-              <div className="flex flex-wrap gap-1.5 pt-4 border-t border-slate-100 mb-4">
-                {proj.tech.map((t, idx) => (
-                  <span
-                    key={idx}
-                    className="px-2.5 py-0.5 rounded-md text-[10px] font-semibold bg-slate-100 text-slate-700 border border-slate-200"
-                  >
-                    {t}
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <span className="text-[11px] font-bold uppercase tracking-widest px-3 py-1 rounded-full bg-[#E6F6F8] text-[#0A8FB6] border border-[#0A8FB6]/20">
+                    {proj.category}
                   </span>
-                ))}
+                  <span className="text-xs text-slate-400 font-semibold">{proj.duration}</span>
+                </div>
+
+                <h3 className="font-heading font-bold text-2xl text-[#034665] group-hover:text-[#0A8FB6] transition-colors mb-2">
+                  {proj.title}
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-4">
+                  {proj.desc}
+                </p>
+
+                <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 mb-5">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-[#0A8FB6] block mb-1">
+                    Key Deliverable & Outcome:
+                  </span>
+                  <span className="text-xs text-slate-700 font-medium leading-relaxed block">
+                    {proj.results}
+                  </span>
+                </div>
               </div>
 
-              <Link
-                to="/contact"
-                className="inline-flex items-center gap-1.5 text-xs font-bold text-[#034665] group-hover:text-[#0A8FB6] transition-colors"
-              >
-                <span>Inquire About Similar Solution</span>
-                <ArrowUpRight className="w-4 h-4" />
-              </Link>
-            </div>
-          </div>
-        ))}
-      </div>
+              <div>
+                <div className="flex flex-wrap gap-1.5 pt-4 border-t border-slate-100 mb-4">
+                  {proj.tech.map((t, i) => (
+                    <span
+                      key={i}
+                      className="px-2.5 py-0.5 rounded-md text-[10px] font-semibold bg-slate-100 text-slate-700 border border-slate-200"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
+
+                <Link
+                  to="/contact"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#034665] group-hover:text-[#0A8FB6] transition-colors"
+                >
+                  <span>Inquire About Similar Solution</span>
+                  <ArrowUpRight className="w-4 h-4" />
+                </Link>
+              </div>
+            </motion.div>
+          ))}
+        </AnimatePresence>
+      </motion.div>
 
       {/* Bottom CTA */}
-      <div className="p-8 sm:p-12 rounded-3xl [background:linear-gradient(135deg,#FFFFFF_0%,#F0F8FA_50%,#E6F6F8_100%)] text-[#034665] border border-slate-200 shadow-md text-center space-y-3">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.97 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true, margin: '-50px' }}
+        transition={{ duration: 0.6 }}
+        className="p-8 sm:p-12 rounded-3xl [background:linear-gradient(135deg,#FFFFFF_0%,#F0F8FA_50%,#E6F6F8_100%)] text-[#034665] border border-slate-200 shadow-md text-center space-y-3"
+      >
         <h3 className="font-heading font-extrabold text-2xl sm:text-3xl text-[#034665]">
           Ready to turn your vision into our next success story?
         </h3>
@@ -256,15 +283,17 @@ export default function Portfolio() {
           Contact our development team in Ahmedabad to discuss scope, timelines, and technical architecture.
         </p>
         <div className="pt-2">
-          <Link
-            to="/contact"
-            className="kevalon-btn-primary !px-7 !py-3.5 text-sm font-bold uppercase tracking-wider text-white inline-flex items-center gap-2 shadow-sm"
-          >
-            <span>Start Your Project</span>
-            <ArrowUpRight className="w-4 h-4" />
-          </Link>
+          <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} className="inline-block">
+            <Link
+              to="/contact"
+              className="kevalon-btn-primary !px-7 !py-3.5 text-sm font-bold uppercase tracking-wider text-white inline-flex items-center gap-2 shadow-sm"
+            >
+              <span>Start Your Project</span>
+              <ArrowUpRight className="w-4 h-4" />
+            </Link>
+          </motion.div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }

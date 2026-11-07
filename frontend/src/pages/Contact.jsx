@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Mail, Phone, MapPin, Send, CheckCircle2, AlertCircle, Clock, MessageSquare, Sparkles } from 'lucide-react';
+import { motion } from 'framer-motion';
 import api from '../services/api';
 
 export default function Contact() {
@@ -61,7 +62,12 @@ export default function Contact() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 space-y-12 sm:space-y-16">
       {/* Header */}
-      <div className="text-center max-w-3xl mx-auto space-y-4">
+      <motion.div
+        initial={{ opacity: 0, y: 25 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="text-center max-w-3xl mx-auto space-y-4"
+      >
         <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-bold tracking-widest uppercase bg-[#0A8FB6]/10 text-[#0A8FB6] border border-[#0A8FB6]/20">
           <span className="w-2 h-2 rounded-full bg-[#0A8FB6] animate-pulse" />
           <span>Get In Touch</span>
@@ -73,12 +79,17 @@ export default function Contact() {
         <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
           Have an idea or need an enterprise technology partner? Our engineering leads are available to evaluate your scope and provide a tailored proposal.
         </p>
-      </div>
+      </motion.div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
         {/* Contact Info Sidebar */}
-        <div className="lg:col-span-5 space-y-6">
-          <div className="light-card relative overflow-hidden p-8 space-y-6 bg-white border border-slate-200">
+        <motion.div
+          initial={{ opacity: 0, x: -30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.15 }}
+          className="lg:col-span-5 space-y-6"
+        >
+          <div className="light-card relative overflow-hidden p-8 space-y-6 bg-white border border-slate-200 shadow-sm">
             <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#034665] to-[#0A8FB6]" />
             <h3 className="font-heading font-bold text-2xl text-[#034665] mb-6">
               Headquarters & Channels
@@ -134,7 +145,9 @@ export default function Contact() {
 
             {/* WhatsApp Direct */}
             <div className="pt-4 border-t border-slate-100">
-              <a
+              <motion.a
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 href="https://wa.link/a02fdn"
                 target="_blank"
                 rel="noreferrer"
@@ -142,13 +155,18 @@ export default function Contact() {
               >
                 <MessageSquare className="w-4 h-4 text-[#16a34a]" />
                 <span>Chat Instantly On WhatsApp</span>
-              </a>
+              </motion.a>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Contact Form */}
-        <div className="lg:col-span-7">
+        <motion.div
+          initial={{ opacity: 0, x: 30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="lg:col-span-7"
+        >
           <div className="light-card p-8 sm:p-10 bg-white border border-slate-200 shadow-md">
             <h3 className="font-heading font-bold text-2xl text-[#034665] mb-2">
               Send Project Inquiry
@@ -158,20 +176,28 @@ export default function Contact() {
             </p>
 
             {status.success && (
-              <div className="mb-6 p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-sm flex items-start gap-3">
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mb-6 p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-sm flex items-start gap-3"
+              >
                 <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
                 <div>
                   <strong className="block font-semibold">Message Dispatched Successfully!</strong>
                   Thank you for reaching out. A team member from Kevalon Technology will contact you within 24 hours.
                 </div>
-              </div>
+              </motion.div>
             )}
 
             {status.error && (
-              <div className="mb-6 p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-sm flex items-start gap-3">
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mb-6 p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-sm flex items-start gap-3"
+              >
                 <AlertCircle className="w-5 h-5 text-rose-600 shrink-0 mt-0.5" />
                 <div>{status.error}</div>
-              </div>
+              </motion.div>
             )}
 
             <form onSubmit={handleSubmit} className="space-y-5">
@@ -275,7 +301,9 @@ export default function Contact() {
                 />
               </div>
 
-              <button
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 type="submit"
                 disabled={status.submitting}
                 className="kevalon-btn-primary w-full py-3.5 text-xs font-bold uppercase tracking-widest text-white flex items-center justify-center gap-2 shadow-md hover:shadow-lg disabled:opacity-50 transition-all"
@@ -288,10 +316,10 @@ export default function Contact() {
                     <Send className="w-4 h-4" />
                   </>
                 )}
-              </button>
+              </motion.button>
             </form>
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );
