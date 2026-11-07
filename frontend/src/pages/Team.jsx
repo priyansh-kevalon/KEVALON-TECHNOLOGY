@@ -1,31 +1,191 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Sparkles, Users } from 'lucide-react';
+import { ArrowRight, Sparkles, Users, Award, Briefcase, MapPin } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const teamMembers = [
-  { name: 'Harsh Kothari', role: 'Founder & CEO', initials: 'HK', tag: 'Leadership' },
-  { name: 'Vanshita Rathod', role: 'HR Manager', initials: 'VR', tag: 'Leadership' },
-  { name: 'Hetvi Pandya', role: 'MERN Stack Developer', initials: 'HP', tag: 'Developer' },
-  { name: 'Vansh Patel', role: 'MERN Stack Developer', initials: 'VP', tag: 'Developer' },
-  { name: 'Vrushali Panchal', role: 'MERN Stack Developer', initials: 'VP', tag: 'Developer' },
-  { name: 'Tilak Soni', role: 'MERN Stack Developer', initials: 'TS', tag: 'Developer' },
-  { name: 'Raval Prince Mahendrabhai', role: 'MERN Stack Developer - Intern', initials: 'RP', tag: 'Developer' },
-  { name: 'Ramlavat Surpalsinh', role: 'MERN Stack Developer', initials: 'RS', tag: 'Developer' },
-  { name: 'Vaghasiya Yash', role: 'Frontend Developer', initials: 'VY', tag: 'Developer' },
-  { name: 'Kareliya Priyansh', role: 'Frontend Developer', initials: 'KP', tag: 'Developer' },
-  { name: 'Jeel Popat', role: 'Full Stack Developer', initials: 'JP', tag: 'Developer' },
-  { name: 'Meet Shah', role: 'Data Analyst', initials: 'MS', tag: 'Developer' },
-  { name: 'Harsh Rajendra Uttekar', role: 'Python Developer - Intern', initials: 'HU', tag: 'Developer' },
-  { name: 'Arpita Sangani', role: 'UI/UX Designer - Intern', initials: 'AS', tag: 'Designer' },
-  { name: 'Keyur Nayi', role: 'Graphic Designer', initials: 'KN', tag: 'Designer' },
-  { name: 'Priya Chavda', role: 'Graphic Designer', initials: 'PC', tag: 'Designer' },
-  { name: 'Mohit Panchal', role: 'Graphic Designer', initials: 'MP', tag: 'Designer' },
-  { name: 'Bhavya Shah', role: 'Flutter Developer', initials: 'BS', tag: 'Developer' },
-  { name: 'Aangi Thakkar', role: 'AI/ML - Intern', initials: 'AT', tag: 'Developer' },
+  {
+    name: 'Harsh Kothari',
+    role: 'Founder & CEO',
+    image: '/team/Harsh_Kothari.webp',
+    initials: 'HK',
+    tag: 'Leadership',
+    bio: 'Visionary leader driving engineering excellence, enterprise partnerships, and digital transformation.',
+  },
+  {
+    name: 'Vanshita Rathod',
+    role: 'HR Manager',
+    image: '/team/Vanshita_Rathod.webp',
+    initials: 'VR',
+    tag: 'Leadership',
+    bio: 'Championing talent acquisition, company culture, employee wellness, and developer onboarding.',
+  },
+  {
+    name: 'Hetvi Pandya',
+    role: 'MERN Stack Developer',
+    image: '/team/Hetvi_Pandya.webp',
+    initials: 'HP',
+    tag: 'Developer',
+    bio: 'Specializing in reactive React frontends, high-speed Node.js microservices, and database modeling.',
+  },
+  {
+    name: 'Vansh Patel',
+    role: 'MERN Stack Developer',
+    image: '/team/Vansh_Patel.webp',
+    initials: 'VP',
+    tag: 'Developer',
+    bio: 'Building enterprise web applications, real-time dashboards, and secure RESTful APIs.',
+  },
+  {
+    name: 'Vrushali Panchal',
+    role: 'MERN Stack Developer',
+    image: '/team/Vrushali_Panchal.webp',
+    initials: 'VP',
+    tag: 'Developer',
+    bio: 'Architecting scalable MongoDB databases, Express controllers, and responsive user flows.',
+  },
+  {
+    name: 'Tilak Soni',
+    role: 'MERN Stack Developer',
+    image: '/team/Tilak_Soni.webp',
+    initials: 'TS',
+    tag: 'Developer',
+    bio: 'Crafting modern full-stack web solutions with clean code, unit testing, and agile sprints.',
+  },
+  {
+    name: 'Raval Prince Mahendrabhai',
+    role: 'MERN Stack Developer - Intern',
+    image: '/team/Raval_Prince_MahendraBhai.webp',
+    initials: 'RP',
+    tag: 'Developer',
+    bio: 'Contributing to live web portals, API integration, and front-end performance tuning.',
+  },
+  {
+    name: 'Ramlavat Surpalsinh',
+    role: 'MERN Stack Developer',
+    image: '/team/Ramlavat_Surpalsinh_Harendrasinh.webp',
+    initials: 'RS',
+    tag: 'Developer',
+    bio: 'Developing robust full-stack features, third-party webhook integrations, and authentication.',
+  },
+  {
+    name: 'Vaghasiya Yash',
+    role: 'Frontend Developer',
+    image: '/team/VAGHASIYA_YASH_BHARATBHAI.webp',
+    initials: 'VY',
+    tag: 'Developer',
+    bio: 'Translating Figma designs into pixel-perfect, accessible, and high-performance React UI components.',
+  },
+  {
+    name: 'Kareliya Priyansh',
+    role: 'Frontend Developer',
+    image: '/team/KARELIYA_PRIYANSH_DEEPAKBHAI.webp',
+    initials: 'KP',
+    tag: 'Developer',
+    bio: 'Focusing on intuitive user experiences, interactive animations, and mobile-first layouts.',
+  },
+  {
+    name: 'Jeel Popat',
+    role: 'Full Stack Developer',
+    image: '/team/Jeel_Popat.webp',
+    initials: 'JP',
+    tag: 'Developer',
+    bio: 'Full-lifecycle software engineering from server architecture to seamless client interfaces.',
+  },
+  {
+    name: 'Meet Shah',
+    role: 'Data Analyst',
+    image: '/team/Meet_Shah.webp',
+    initials: 'MS',
+    tag: 'Developer',
+    bio: 'Transforming raw telemetry into actionable business intelligence dashboards and analytics models.',
+  },
+  {
+    name: 'Harsh Rajendra Uttekar',
+    role: 'Python Developer - Intern',
+    image: '/team/Harsh_Rajendra_Uttekar.webp',
+    initials: 'HU',
+    tag: 'Developer',
+    bio: 'Developing Python automation scripts, data pipelines, and machine learning proof-of-concepts.',
+  },
+  {
+    name: 'Arpita Sangani',
+    role: 'UI/UX Designer - Intern',
+    image: '/team/Arpita_Sangani.webp',
+    initials: 'AS',
+    tag: 'Designer',
+    bio: 'Designing user journeys, wireframes, component design systems, and mobile app interfaces.',
+  },
+  {
+    name: 'Keyur Nayi',
+    role: 'Graphic Designer',
+    image: '/team/Keyur_Nayi.webp',
+    initials: 'KN',
+    tag: 'Designer',
+    bio: 'Creating compelling brand identities, digital assets, social media visuals, and vector graphics.',
+  },
+  {
+    name: 'Priya Chavda',
+    role: 'Graphic Designer',
+    image: '/team/Priya_Chavda.webp',
+    initials: 'PC',
+    tag: 'Designer',
+    bio: 'Crafting creative marketing visuals, product packaging mockups, and corporate media.',
+  },
+  {
+    name: 'Mohit Panchal',
+    role: 'Graphic Designer',
+    image: '/team/Mohit_Panchal.webp',
+    initials: 'MP',
+    tag: 'Designer',
+    bio: 'Producing visual communication assets, UI illustrations, and brand promotional material.',
+  },
+  {
+    name: 'Bhavya Shah',
+    role: 'Flutter Developer',
+    image: '/team/Bhavya_Shah.webp',
+    initials: 'BS',
+    tag: 'Developer',
+    bio: 'Engineering cross-platform mobile apps for iOS and Android with offline-first synchronization.',
+  },
+  {
+    name: 'Aangi Thakkar',
+    role: 'AI/ML - Intern',
+    image: '/team/Aangi_thakkar.webp',
+    initials: 'AT',
+    tag: 'Developer',
+    bio: 'Researching generative AI integrations, LLM prompt engineering, and intelligent chatbot systems.',
+  },
 ];
 
 const filterTags = ['All', 'Leadership', 'Developer', 'Designer'];
+
+function EmployeeAvatar({ src, alt, initials }) {
+  const [hasError, setHasError] = useState(!src);
+
+  if (!hasError && src) {
+    return (
+      <div className="relative w-32 h-32 sm:w-36 sm:h-36 mx-auto rounded-2xl overflow-hidden mb-4 p-1 bg-gradient-to-br from-[#0A8FB6]/30 via-slate-100 to-[#034665]/20 shadow-md group-hover:scale-105 transition-transform duration-300">
+        <img
+          src={src}
+          alt={alt}
+          loading="lazy"
+          decoding="async"
+          onError={() => setHasError(true)}
+          className="w-full h-full object-cover object-top rounded-xl bg-slate-100"
+        />
+      </div>
+    );
+  }
+
+  return (
+    <div className="w-32 h-32 sm:w-36 sm:h-36 mx-auto rounded-2xl bg-gradient-to-br from-[#0A8FB6] to-[#034665] p-1 shadow-md mb-4 group-hover:scale-105 transition-transform duration-300">
+      <div className="w-full h-full bg-white rounded-xl flex items-center justify-center text-[#034665] font-heading font-bold text-3xl group-hover:text-[#0A8FB6] transition-colors">
+        {initials}
+      </div>
+    </div>
+  );
+}
 
 export default function Team() {
   const [activeTag, setActiveTag] = useState('All');
@@ -53,8 +213,20 @@ export default function Team() {
           <span className="kevalon-gradient-text">Engineering Team</span>
         </h1>
         <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
-          A passionate in-house team of architects, developers, designers, and strategists crafting world-class digital products from Ahmedabad, India.
+          A passionate in-house team of architects, developers, designers, and strategists crafting world-class digital products from Solaris Business Hub, Ahmedabad.
         </p>
+
+        <div className="pt-2 flex items-center justify-center gap-6 text-xs text-slate-500">
+          <span className="flex items-center gap-1.5">
+            <Users className="w-4 h-4 text-[#0A8FB6]" />
+            19+ In-House Specialists
+          </span>
+          <span>•</span>
+          <span className="flex items-center gap-1.5">
+            <MapPin className="w-4 h-4 text-[#0A8FB6]" />
+            Ahmedabad Headquarters
+          </span>
+        </div>
       </motion.div>
 
       {/* Filter Tabs with Sliding Animation */}
@@ -81,8 +253,8 @@ export default function Team() {
         ))}
       </div>
 
-      {/* Team Grid with Animated Layout */}
-      <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      {/* Team Grid with High-Res Employee Photos */}
+      <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-7">
         <AnimatePresence>
           {filtered.map((member, idx) => (
             <motion.div
@@ -97,25 +269,25 @@ export default function Team() {
             >
               <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#034665] to-[#0A8FB6]" />
 
-              {/* Initials Avatar Box */}
-              <motion.div
-                whileHover={{ rotate: 5, scale: 1.08 }}
-                className="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#0A8FB6] to-[#034665] p-0.5 shadow-sm mb-4 transition-transform duration-300"
-              >
-                <div className="w-full h-full bg-white rounded-[14px] flex items-center justify-center text-[#034665] font-heading font-bold text-2xl group-hover:text-[#0A8FB6] transition-colors">
-                  {member.initials}
-                </div>
-              </motion.div>
+              {/* High-Resolution Portrait Employee Photo */}
+              <EmployeeAvatar
+                src={member.image}
+                alt={member.name}
+                initials={member.initials}
+              />
 
-              <div>
+              <div className="w-full">
                 <span className="text-[10px] font-bold uppercase tracking-widest px-2.5 py-0.5 rounded-full bg-[#E6F6F8] text-[#0A8FB6] border border-[#0A8FB6]/20 inline-block mb-2">
                   {member.tag}
                 </span>
-                <h3 className="font-bold text-lg text-[#034665] leading-snug mb-1 group-hover:text-[#0A8FB6] transition-colors">
+                <h3 className="font-heading font-bold text-lg text-[#034665] leading-snug mb-1 group-hover:text-[#0A8FB6] transition-colors">
                   {member.name}
                 </h3>
-                <p className="text-xs text-slate-500 font-medium">
+                <p className="text-xs font-semibold text-[#0A8FB6] uppercase tracking-wider mb-2">
                   {member.role}
+                </p>
+                <p className="text-[11px] text-slate-500 leading-relaxed line-clamp-2">
+                  {member.bio}
                 </p>
               </div>
             </motion.div>
