@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Sparkles, Users, Award, Briefcase, MapPin } from 'lucide-react';
+import { ArrowRight, Sparkles, Users, Award, Briefcase, MapPin, CheckCircle2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const teamMembers = [
@@ -10,7 +10,9 @@ const teamMembers = [
     image: '/team/Harsh_Kothari.webp',
     initials: 'HK',
     tag: 'Leadership',
-    bio: 'Visionary leader driving engineering excellence, enterprise partnerships, and digital transformation.',
+    bio: 'Visionary leader driving engineering excellence, enterprise partnerships, and full-stack digital transformation for global clients.',
+    experience: 'Founder & Strategic Architect',
+    location: 'Ahmedabad, India',
   },
   {
     name: 'Vanshita Rathod',
@@ -18,7 +20,9 @@ const teamMembers = [
     image: '/team/Vanshita_Rathod.webp',
     initials: 'VR',
     tag: 'Leadership',
-    bio: 'Championing talent acquisition, company culture, employee wellness, and developer onboarding.',
+    bio: 'Championing talent acquisition, company culture, employee growth, and seamless developer onboarding across all engineering divisions.',
+    experience: 'People Operations & Culture',
+    location: 'Ahmedabad, India',
   },
   {
     name: 'Hetvi Pandya',
@@ -26,7 +30,9 @@ const teamMembers = [
     image: '/team/Hetvi_Pandya.webp',
     initials: 'HP',
     tag: 'Developer',
-    bio: 'Specializing in reactive React frontends, high-speed Node.js microservices, and database modeling.',
+    bio: 'Specializing in high-performance React frontends, scalable Node.js microservices, and complex MongoDB schema optimizations.',
+    experience: 'Full Stack Engineering',
+    location: 'Ahmedabad, India',
   },
   {
     name: 'Vansh Patel',
@@ -34,7 +40,9 @@ const teamMembers = [
     image: '/team/Vansh_Patel.webp',
     initials: 'VP',
     tag: 'Developer',
-    bio: 'Building enterprise web applications, real-time dashboards, and secure RESTful APIs.',
+    bio: 'Building enterprise web portals, interactive real-time dashboards, and secure RESTful backend microservices.',
+    experience: 'Full Stack Engineering',
+    location: 'Ahmedabad, India',
   },
   {
     name: 'Vrushali Panchal',
@@ -42,7 +50,9 @@ const teamMembers = [
     image: '/team/Vrushali_Panchal.webp',
     initials: 'VP',
     tag: 'Developer',
-    bio: 'Architecting scalable MongoDB databases, Express controllers, and responsive user flows.',
+    bio: 'Architecting scalable cloud databases, Express API controllers, and fluid reactive workflows for ambitious web platforms.',
+    experience: 'Full Stack Engineering',
+    location: 'Ahmedabad, India',
   },
   {
     name: 'Tilak Soni',
@@ -50,7 +60,9 @@ const teamMembers = [
     image: '/team/Tilak_Soni.webp',
     initials: 'TS',
     tag: 'Developer',
-    bio: 'Crafting modern full-stack web solutions with clean code, unit testing, and agile sprints.',
+    bio: 'Crafting modern full-stack web solutions with clean code, test-driven validation, and agile sprint-based delivery.',
+    experience: 'Full Stack Engineering',
+    location: 'Ahmedabad, India',
   },
   {
     name: 'Raval Prince Mahendrabhai',
@@ -58,7 +70,9 @@ const teamMembers = [
     image: '/team/Raval_Prince_MahendraBhai.webp',
     initials: 'RP',
     tag: 'Developer',
-    bio: 'Contributing to live web portals, API integration, and front-end performance tuning.',
+    bio: 'Contributing to live web portals, frontend state management, API integration, and performance benchmarking.',
+    experience: 'Web Development',
+    location: 'Ahmedabad, India',
   },
   {
     name: 'Ramlavat Surpalsinh',
@@ -66,7 +80,9 @@ const teamMembers = [
     image: '/team/Ramlavat_Surpalsinh_Harendrasinh.webp',
     initials: 'RS',
     tag: 'Developer',
-    bio: 'Developing robust full-stack features, third-party webhook integrations, and authentication.',
+    bio: 'Developing robust full-stack features, third-party webhook integrations, secure JWT auth, and database tuning.',
+    experience: 'Full Stack Engineering',
+    location: 'Ahmedabad, India',
   },
   {
     name: 'Vaghasiya Yash',
@@ -74,7 +90,9 @@ const teamMembers = [
     image: '/team/VAGHASIYA_YASH_BHARATBHAI.webp',
     initials: 'VY',
     tag: 'Developer',
-    bio: 'Translating Figma designs into pixel-perfect, accessible, and high-performance React UI components.',
+    bio: 'Translating complex Figma designs into pixel-perfect, accessible, and lightning-fast responsive React UI components.',
+    experience: 'Frontend Engineering',
+    location: 'Ahmedabad, India',
   },
   {
     name: 'Kareliya Priyansh',
@@ -82,7 +100,9 @@ const teamMembers = [
     image: '/team/KARELIYA_PRIYANSH_DEEPAKBHAI.webp',
     initials: 'KP',
     tag: 'Developer',
-    bio: 'Focusing on intuitive user experiences, interactive animations, and mobile-first layouts.',
+    bio: 'Focusing on intuitive user experiences, interactive web micro-animations, and mobile-first responsive architecture.',
+    experience: 'Frontend Engineering',
+    location: 'Ahmedabad, India',
   },
   {
     name: 'Jeel Popat',
@@ -90,7 +110,9 @@ const teamMembers = [
     image: '/team/Jeel_Popat.webp',
     initials: 'JP',
     tag: 'Developer',
-    bio: 'Full-lifecycle software engineering from server architecture to seamless client interfaces.',
+    bio: 'End-to-end software development from database modeling and server pipelines to seamless client interface design.',
+    experience: 'Full Stack Engineering',
+    location: 'Ahmedabad, India',
   },
   {
     name: 'Meet Shah',
@@ -98,7 +120,9 @@ const teamMembers = [
     image: '/team/Meet_Shah.webp',
     initials: 'MS',
     tag: 'Developer',
-    bio: 'Transforming raw telemetry into actionable business intelligence dashboards and analytics models.',
+    bio: 'Transforming raw system telemetry into actionable business intelligence, visual dashboards, and analytics pipelines.',
+    experience: 'Data & Analytics',
+    location: 'Ahmedabad, India',
   },
   {
     name: 'Harsh Rajendra Uttekar',
@@ -106,7 +130,9 @@ const teamMembers = [
     image: '/team/Harsh_Rajendra_Uttekar.webp',
     initials: 'HU',
     tag: 'Developer',
-    bio: 'Developing Python automation scripts, data pipelines, and machine learning proof-of-concepts.',
+    bio: 'Developing automated Python scripts, data scraping pipelines, and intelligent machine learning proof-of-concepts.',
+    experience: 'Python & AI Engineering',
+    location: 'Ahmedabad, India',
   },
   {
     name: 'Arpita Sangani',
@@ -114,7 +140,9 @@ const teamMembers = [
     image: '/team/Arpita_Sangani.webp',
     initials: 'AS',
     tag: 'Designer',
-    bio: 'Designing user journeys, wireframes, component design systems, and mobile app interfaces.',
+    bio: 'Designing user-friendly wireframes, comprehensive component design systems in Figma, and mobile app flows.',
+    experience: 'Product & UI/UX Design',
+    location: 'Ahmedabad, India',
   },
   {
     name: 'Keyur Nayi',
@@ -122,7 +150,9 @@ const teamMembers = [
     image: '/team/Keyur_Nayi.webp',
     initials: 'KN',
     tag: 'Designer',
-    bio: 'Creating compelling brand identities, digital assets, social media visuals, and vector graphics.',
+    bio: 'Creating compelling brand identities, promotional collateral, digital assets, and high-impact vector artwork.',
+    experience: 'Brand & Graphic Design',
+    location: 'Ahmedabad, India',
   },
   {
     name: 'Priya Chavda',
@@ -130,7 +160,9 @@ const teamMembers = [
     image: '/team/Priya_Chavda.webp',
     initials: 'PC',
     tag: 'Designer',
-    bio: 'Crafting creative marketing visuals, product packaging mockups, and corporate media.',
+    bio: 'Crafting creative marketing visuals, social media campaign content, and polished corporate communications.',
+    experience: 'Visual Media Design',
+    location: 'Ahmedabad, India',
   },
   {
     name: 'Mohit Panchal',
@@ -138,7 +170,9 @@ const teamMembers = [
     image: '/team/Mohit_Panchal.webp',
     initials: 'MP',
     tag: 'Designer',
-    bio: 'Producing visual communication assets, UI illustrations, and brand promotional material.',
+    bio: 'Producing visual communication assets, UI iconography, digital advertisements, and brand storytelling visuals.',
+    experience: 'Graphic & Media Design',
+    location: 'Ahmedabad, India',
   },
   {
     name: 'Bhavya Shah',
@@ -146,7 +180,9 @@ const teamMembers = [
     image: '/team/Bhavya_Shah.webp',
     initials: 'BS',
     tag: 'Developer',
-    bio: 'Engineering cross-platform mobile apps for iOS and Android with offline-first synchronization.',
+    bio: 'Engineering high-performance native and cross-platform mobile apps for iOS and Android with fluid 60fps animations.',
+    experience: 'Mobile Engineering',
+    location: 'Ahmedabad, India',
   },
   {
     name: 'Aangi Thakkar',
@@ -154,34 +190,48 @@ const teamMembers = [
     image: '/team/Aangi_thakkar.webp',
     initials: 'AT',
     tag: 'Developer',
-    bio: 'Researching generative AI integrations, LLM prompt engineering, and intelligent chatbot systems.',
+    bio: 'Researching generative AI architectures, LLM prompt engineering, automated workflows, and intelligent chat systems.',
+    experience: 'AI & Data Science',
+    location: 'Ahmedabad, India',
   },
 ];
 
 const filterTags = ['All', 'Leadership', 'Developer', 'Designer'];
 
-function EmployeeAvatar({ src, alt, initials }) {
+function BigEmployeeAvatar({ src, alt, initials, tag }) {
   const [hasError, setHasError] = useState(!src);
 
-  if (!hasError && src) {
-    return (
-      <div className="relative w-32 h-32 sm:w-36 sm:h-36 mx-auto rounded-2xl overflow-hidden mb-4 p-1 bg-gradient-to-br from-[#0A8FB6]/30 via-slate-100 to-[#034665]/20 shadow-md group-hover:scale-105 transition-transform duration-300">
+  return (
+    <div className="relative w-full h-80 sm:h-96 rounded-2xl overflow-hidden mb-6 bg-slate-100 border border-slate-200/80 shadow-md group">
+      {!hasError && src ? (
         <img
           src={src}
           alt={alt}
           loading="lazy"
           decoding="async"
           onError={() => setHasError(true)}
-          className="w-full h-full object-cover object-top rounded-xl bg-slate-100"
+          className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
         />
-      </div>
-    );
-  }
+      ) : (
+        <div className="w-full h-full bg-gradient-to-br from-[#0A8FB6] to-[#034665] flex items-center justify-center text-white font-heading font-black text-6xl">
+          {initials}
+        </div>
+      )}
 
-  return (
-    <div className="w-32 h-32 sm:w-36 sm:h-36 mx-auto rounded-2xl bg-gradient-to-br from-[#0A8FB6] to-[#034665] p-1 shadow-md mb-4 group-hover:scale-105 transition-transform duration-300">
-      <div className="w-full h-full bg-white rounded-xl flex items-center justify-center text-[#034665] font-heading font-bold text-3xl group-hover:text-[#0A8FB6] transition-colors">
-        {initials}
+      {/* Floating Department Badge on Image */}
+      <div className="absolute top-4 right-4 z-10">
+        <span className="px-3.5 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wider bg-white/95 backdrop-blur-md text-[#034665] border border-slate-200 shadow-sm">
+          {tag}
+        </span>
+      </div>
+
+      {/* Subtle Bottom Vignette Gradient */}
+      <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-slate-900/60 via-slate-900/10 to-transparent pointer-events-none" />
+
+      {/* Quick Verified Badge */}
+      <div className="absolute bottom-3 left-4 text-white text-xs font-semibold flex items-center gap-1.5 drop-shadow-sm">
+        <CheckCircle2 className="w-4 h-4 text-[#61BBC5]" />
+        <span>Kevalon Core Team</span>
       </div>
     </div>
   );
@@ -196,7 +246,7 @@ export default function Team() {
       : teamMembers.filter((m) => m.tag === activeTag);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 space-y-12 sm:space-y-16">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 space-y-14 sm:space-y-20">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 25 }}
@@ -204,7 +254,7 @@ export default function Team() {
         transition={{ duration: 0.6 }}
         className="text-center max-w-3xl mx-auto space-y-4"
       >
-        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-bold tracking-widest uppercase bg-[#0A8FB6]/10 text-[#0A8FB6] border border-[#0A8FB6]/20">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase bg-[#0A8FB6]/10 text-[#0A8FB6] border border-[#0A8FB6]/20">
           <span className="w-2 h-2 rounded-full bg-[#0A8FB6] animate-pulse" />
           <span>The People Behind Kevalon</span>
         </div>
@@ -216,7 +266,7 @@ export default function Team() {
           A passionate in-house team of architects, developers, designers, and strategists crafting world-class digital products from Solaris Business Hub, Ahmedabad.
         </p>
 
-        <div className="pt-2 flex items-center justify-center gap-6 text-xs text-slate-500">
+        <div className="pt-2 flex items-center justify-center gap-6 text-xs text-slate-500 font-medium">
           <span className="flex items-center gap-1.5">
             <Users className="w-4 h-4 text-[#0A8FB6]" />
             19+ In-House Specialists
@@ -224,21 +274,21 @@ export default function Team() {
           <span>•</span>
           <span className="flex items-center gap-1.5">
             <MapPin className="w-4 h-4 text-[#0A8FB6]" />
-            Ahmedabad Headquarters
+            Solaris Business Hub, Ahmedabad
           </span>
         </div>
       </motion.div>
 
       {/* Filter Tabs with Sliding Animation */}
-      <div className="flex flex-wrap items-center justify-center gap-2">
+      <div className="flex flex-wrap items-center justify-center gap-2.5">
         {filterTags.map((tag) => (
           <button
             key={tag}
             onClick={() => setActiveTag(tag)}
-            className={`relative px-5 py-2 rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider transition-all duration-200 ${
+            className={`relative px-6 py-2.5 rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider transition-all duration-200 ${
               activeTag === tag
                 ? 'text-white'
-                : 'bg-white text-slate-600 hover:text-[#034665] border border-slate-200 hover:border-[#0A8FB6]'
+                : 'bg-white text-slate-600 hover:text-[#034665] border border-slate-200 hover:border-[#0A8FB6] shadow-2xs'
             }`}
           >
             {activeTag === tag && (
@@ -253,8 +303,8 @@ export default function Team() {
         ))}
       </div>
 
-      {/* Team Grid with High-Res Employee Photos */}
-      <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-7">
+      {/* Spacious 3-Column Large Team Cards Grid */}
+      <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
         <AnimatePresence>
           {filtered.map((member, idx) => (
             <motion.div
@@ -263,32 +313,57 @@ export default function Team() {
               initial={{ opacity: 0, scale: 0.94 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.94 }}
-              whileHover={{ y: -6 }}
+              whileHover={{ y: -8 }}
               transition={{ duration: 0.35, delay: idx * 0.04 }}
-              className="light-card relative overflow-hidden p-6 text-center group flex flex-col items-center justify-between bg-white border border-slate-200 hover:border-[#0A8FB6]/50 shadow-xs hover:shadow-xl transition-all"
+              className="light-card relative overflow-hidden p-6 sm:p-7 flex flex-col justify-between bg-white border border-slate-200 hover:border-[#0A8FB6]/50 shadow-md hover:shadow-2xl transition-all rounded-3xl"
             >
-              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#034665] to-[#0A8FB6]" />
+              {/* Top Accent Strip */}
+              <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#034665] via-[#0A8FB6] to-[#61BBC5]" />
 
-              {/* High-Resolution Portrait Employee Photo */}
-              <EmployeeAvatar
-                src={member.image}
-                alt={member.name}
-                initials={member.initials}
-              />
+              <div>
+                {/* Large Portrait Image Frame */}
+                <BigEmployeeAvatar
+                  src={member.image}
+                  alt={member.name}
+                  initials={member.initials}
+                  tag={member.tag}
+                />
 
-              <div className="w-full">
-                <span className="text-[10px] font-bold uppercase tracking-widest px-2.5 py-0.5 rounded-full bg-[#E6F6F8] text-[#0A8FB6] border border-[#0A8FB6]/20 inline-block mb-2">
-                  {member.tag}
+                {/* Content Area with Enlarged Typography */}
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold uppercase tracking-wider text-[#0A8FB6]">
+                      {member.experience}
+                    </span>
+                    <span className="text-xs text-slate-400 font-medium flex items-center gap-1">
+                      <MapPin className="w-3.5 h-3.5 text-slate-400" />
+                      {member.location}
+                    </span>
+                  </div>
+
+                  <h3 className="font-heading font-extrabold text-2xl sm:text-[26px] text-[#034665] leading-tight group-hover:text-[#0A8FB6] transition-colors">
+                    {member.name}
+                  </h3>
+
+                  <div className="text-sm font-bold text-[#0A8FB6] uppercase tracking-wider">
+                    {member.role}
+                  </div>
+
+                  <p className="text-sm sm:text-[15px] text-slate-600 leading-relaxed font-normal pt-1">
+                    {member.bio}
+                  </p>
+                </div>
+              </div>
+
+              {/* Bottom Card Footer Strip */}
+              <div className="pt-5 mt-5 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-slate-500">
+                <span className="flex items-center gap-1.5 text-[#034665]">
+                  <Briefcase className="w-3.5 h-3.5 text-[#0A8FB6]" />
+                  Full-Time In-House
                 </span>
-                <h3 className="font-heading font-bold text-lg text-[#034665] leading-snug mb-1 group-hover:text-[#0A8FB6] transition-colors">
-                  {member.name}
-                </h3>
-                <p className="text-xs font-semibold text-[#0A8FB6] uppercase tracking-wider mb-2">
-                  {member.role}
-                </p>
-                <p className="text-[11px] text-slate-500 leading-relaxed line-clamp-2">
-                  {member.bio}
-                </p>
+                <span className="text-[#0A8FB6] group-hover:translate-x-1 transition-transform flex items-center gap-1">
+                  Verified Member →
+                </span>
               </div>
             </motion.div>
           ))}
@@ -307,14 +382,14 @@ export default function Team() {
           <h3 className="font-heading font-extrabold text-2xl sm:text-3xl text-[#034665]">
             Want to build extraordinary technology with us?
           </h3>
-          <p className="text-sm text-slate-600 mt-1 max-w-xl">
+          <p className="text-sm sm:text-base text-slate-600 mt-1 max-w-xl">
             We are hiring full-stack developers, mobile app engineers, and tech interns in Ahmedabad.
           </p>
         </div>
         <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
           <Link
             to="/careers"
-            className="kevalon-btn-primary !px-7 !py-3.5 text-sm font-bold uppercase tracking-wider text-white inline-flex items-center gap-2 shadow-sm shrink-0"
+            className="kevalon-btn-primary !px-8 !py-4 text-sm font-bold uppercase tracking-wider text-white inline-flex items-center gap-2 shadow-sm shrink-0"
           >
             <span>View Open Positions</span>
             <ArrowRight className="w-4 h-4" />
