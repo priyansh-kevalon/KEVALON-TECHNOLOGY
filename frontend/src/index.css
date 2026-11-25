@@ -92,4 +92,24 @@
     background-image: radial-gradient(rgba(10, 143, 182, 0.12) 1.2px, transparent 1.2px);
     background-size: 24px 24px;
   }
+
+  /* Seamless Marquee Ticker Animation */
+  @keyframes tickerScroll {
+    0% {
+      transform: translate3d(0, 0, 0);
+    }
+    100% {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+
+  .animate-ticker {
+    display: inline-flex;
+    animation: tickerScroll 55s linear infinite;
+    will-change: transform;
+  }
+
+  .animate-ticker:hover {
+    animation-play-state: paused;
+  }
 }

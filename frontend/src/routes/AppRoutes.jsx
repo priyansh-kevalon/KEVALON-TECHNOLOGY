@@ -9,6 +9,7 @@ import Portfolio from '../pages/Portfolio';
 import Team from '../pages/Team';
 import Careers from '../pages/Careers';
 import Contact from '../pages/Contact';
+import StaffAugmentation from '../pages/StaffAugmentation';
 import NotFound from '../pages/NotFound';
 
 export default function AppRoutes() {
@@ -20,6 +21,8 @@ export default function AppRoutes() {
         <Route path="services" element={<Services />} />
         <Route path="services/:slug" element={<ServiceDetails />} />
         <Route path="portfolio" element={<Portfolio />} />
+        <Route path="staff-augmentation" element={<StaffAugmentation />} />
+        <Route path="hire/*" element={<StaffAugmentation />} />
         <Route path="team" element={<Team />} />
         <Route path="careers" element={<Careers />} />
         <Route path="contact" element={<Contact />} />

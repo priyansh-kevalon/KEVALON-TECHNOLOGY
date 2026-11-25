@@ -133,6 +133,11 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link to="/staff-augmentation" className="hover:text-[#0A8FB6] transition-colors flex items-center gap-1 group font-semibold text-[#034665]">
+                  Staff Augmentation <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity text-[#0A8FB6]" />
+                </Link>
+              </li>
+              <li>
                 <Link to="/team" className="hover:text-[#0A8FB6] transition-colors flex items-center gap-1 group">
                   Our Team <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </Link>
