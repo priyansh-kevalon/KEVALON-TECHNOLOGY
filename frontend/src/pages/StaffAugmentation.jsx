@@ -356,7 +356,7 @@ export default function StaffAugmentation() {
 
     setLoading(true);
     try {
-      await api.post('/contact', {
+      await api.post('/hire-leads', {
         name: formData.name.trim(),
         email: formData.email.trim(),
         phone: formData.phone.trim(),

@@ -2,6 +2,7 @@ import express from 'express';
 import contactRoutes from './contactRoutes.js';
 import serviceRoutes from './serviceRoutes.js';
 import jobRoutes from './jobRoutes.js';
+import hireLeadRoutes from './hireLeadRoutes.js';
 import mongoose from 'mongoose';
 
 const router = express.Router();
@@ -20,11 +21,14 @@ router.get('/health', (req, res) => {
   });
 });
 
-// Mount modular sub-routes
+// Mount modular sub-routes for all forms across the site
 router.use('/contact', contactRoutes);
 router.use('/services', serviceRoutes);
 router.use('/jobs', jobRoutes);
 router.use('/careers', jobRoutes);
 router.use('/applications', jobRoutes);
+router.use('/internship-leads', jobRoutes);
+router.use('/hire-leads', hireLeadRoutes);
+router.use('/staff-augmentation', hireLeadRoutes);
 
 export default router;

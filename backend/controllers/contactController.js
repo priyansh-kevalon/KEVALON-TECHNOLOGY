@@ -7,19 +7,43 @@ const inMemoryContacts = [];
 
 export const submitContact = async (req, res, next) => {
   try {
-    const { name, email, phone, service, budget, message } = req.body;
+    const {
+      name,
+      fullName,
+      firstName,
+      lastName,
+      email,
+      phone,
+      service,
+      subject,
+      budget,
+      message,
+      brief,
+    } = req.body;
 
-    if (!name || !email || !message) {
-      return errorResponse(res, 400, 'Please provide name, email, and message fields.');
+    const candidateName =
+      name ||
+      fullName ||
+      (firstName && lastName ? `${firstName} ${lastName}`.trim() : firstName || lastName);
+
+    const clientEmail = email ? email.trim().toLowerCase() : '';
+    const clientMessage = message || brief || '';
+
+    if (!candidateName || !clientEmail || !clientMessage) {
+      return errorResponse(
+        res,
+        400,
+        'Please provide Name, Email address, and Project Message.'
+      );
     }
 
     const payload = {
-      name,
-      email,
-      phone: phone || '',
-      service: service || 'custom-software',
+      name: candidateName.trim(),
+      email: clientEmail,
+      phone: phone ? phone.trim() : '',
+      service: service || subject || 'custom-software',
       budget: budget || '$5k - $15k',
-      message,
+      message: clientMessage.trim(),
       ipAddress: req.ip || req.headers['x-forwarded-for'] || '',
       createdAt: new Date(),
     };
@@ -27,17 +51,15 @@ export const submitContact = async (req, res, next) => {
     let savedData = null;
 
     if (mongoose.connection.readyState === 1) {
-      // MongoDB is connected
       savedData = await Contact.create(payload);
     } else {
-      // In-memory fallback for initial local testing without active DB
       payload._id = `temp_${Date.now()}`;
       inMemoryContacts.push(payload);
       savedData = payload;
-      console.log('[Contact Service] Recorded in temporary cache (MongoDB not connected).');
+      console.log('[Contact Service] Recorded in temporary cache (MongoDB offline).');
     }
 
-    console.log(`[Contact Service] New inquiry from: ${name} (${email})`);
+    console.log(`[Contact Service] New inquiry from: ${candidateName} (${clientEmail}) for ${payload.service}`);
 
     return successResponse(
       res,
