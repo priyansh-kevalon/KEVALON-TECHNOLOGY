@@ -263,21 +263,6 @@ export default function Navbar() {
                                   );
                                 })}
                               </div>
-
-                              {/* Card Footer Matching Reference Image */}
-                              <div className="border-t border-slate-100 pt-3 mt-2 px-2 flex items-center justify-between">
-                                <span className="text-[11px] text-slate-500 font-medium">
-                                  Scale your team fast
-                                </span>
-                                <Link
-                                  to="/staff-augmentation"
-                                  onClick={() => setStaffDropdownOpen(false)}
-                                  className="inline-flex items-center gap-1 px-3.5 py-1.5 rounded-full bg-[#0A8FB6] hover:bg-[#034665] text-white text-[11px] font-bold transition-all duration-200 shadow-xs"
-                                >
-                                  <span>View All</span>
-                                  <ArrowRight className="w-3 h-3" />
-                                </Link>
-                              </div>
                             </div>
                           </motion.div>
                         )}
@@ -401,15 +386,6 @@ export default function Navbar() {
                               </Link>
                             );
                           })}
-                          <div className="pt-1.5 border-t border-slate-200/60 flex items-center justify-between px-2">
-                            <span className="text-[10px] text-slate-500 font-medium">Scale your team fast</span>
-                            <Link
-                              to="/staff-augmentation"
-                              className="text-[11px] font-bold text-[#0A8FB6] hover:underline"
-                            >
-                              View All →
-                            </Link>
-                          </div>
                         </div>
                       )}
                     </div>
