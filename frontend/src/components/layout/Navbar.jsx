@@ -213,20 +213,23 @@ export default function Navbar() {
                         )}
                       </NavLink>
 
-                      {/* Dropdown Menu (Matches User Reference Image) */}
+                      {/* Dropdown Menu (100% Solid White Card - No Transparency) */}
                       <AnimatePresence>
                         {staffDropdownOpen && (
                           <motion.div
-                            initial={{ opacity: 0, y: 12, scale: 0.96 }}
+                            initial={{ opacity: 0, y: 10, scale: 0.98 }}
                             animate={{ opacity: 1, y: 0, scale: 1 }}
-                            exit={{ opacity: 0, y: 8, scale: 0.96 }}
-                            transition={{ duration: 0.18, ease: 'easeOut' }}
-                            className="absolute top-full left-1/2 -translate-x-1/2 pt-3 z-50"
+                            exit={{ opacity: 0, y: 6, scale: 0.98 }}
+                            transition={{ duration: 0.16, ease: 'easeOut' }}
+                            className="absolute top-full left-1/2 -translate-x-1/2 pt-3 z-[100]"
                           >
-                            <div className="w-[330px] bg-white/98 backdrop-blur-2xl rounded-2xl border border-slate-200/90 shadow-[0_20px_50px_rgba(3,70,101,0.18)] p-4 text-left">
+                            <div
+                              style={{ backgroundColor: '#ffffff' }}
+                              className="w-[330px] bg-white rounded-2xl border border-slate-200 shadow-[0_25px_60px_-10px_rgba(3,70,101,0.22)] p-4 text-left relative overflow-hidden"
+                            >
                               {/* Header & Subheading */}
                               <div className="px-2 pt-1 pb-2">
-                                <h4 className="text-[11px] font-extrabold tracking-widest text-[#034665] uppercase flex items-center gap-1.5">
+                                <h4 className="text-[11px] font-black tracking-widest text-[#034665] uppercase flex items-center gap-1.5">
                                   <span>STAFF AUGMENTATION SERVICES</span>
                                 </h4>
                                 <p className="text-[10px] font-bold tracking-wider text-slate-400 uppercase mt-1">
@@ -249,7 +252,7 @@ export default function Navbar() {
                                         <IconComponent className="w-3.5 h-3.5" />
                                       </div>
                                       <div className="flex-1 min-w-0">
-                                        <span className="block text-[13px] font-semibold text-slate-700 group-hover:text-[#034665] transition-colors leading-tight">
+                                        <span className="block text-[13px] font-semibold text-slate-800 group-hover:text-[#034665] transition-colors leading-tight">
                                           {subItem.name}
                                         </span>
                                         <span className="block text-[11px] text-slate-400 group-hover:text-slate-500 truncate">
@@ -269,7 +272,7 @@ export default function Navbar() {
                                 <Link
                                   to="/staff-augmentation"
                                   onClick={() => setStaffDropdownOpen(false)}
-                                  className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#0A8FB6] hover:bg-[#034665] text-white text-[11px] font-semibold transition-all duration-200 shadow-xs"
+                                  className="inline-flex items-center gap-1 px-3.5 py-1.5 rounded-full bg-[#0A8FB6] hover:bg-[#034665] text-white text-[11px] font-bold transition-all duration-200 shadow-xs"
                                 >
                                   <span>View All</span>
                                   <ArrowRight className="w-3 h-3" />
@@ -379,9 +382,12 @@ export default function Navbar() {
                         </button>
                       </div>
 
-                      {/* Mobile Dropdown Sub-Items */}
+                      {/* Mobile Dropdown Sub-Items (Solid Clean Background) */}
                       {mobileStaffOpen && (
-                        <div className="pl-4 pr-2 py-2 space-y-1 bg-slate-50/70 rounded-xl my-1 border border-slate-100">
+                        <div
+                          style={{ backgroundColor: '#ffffff' }}
+                          className="pl-4 pr-2 py-2 space-y-1 bg-white rounded-xl my-1 border border-slate-200 shadow-xs"
+                        >
                           {staffHireLinks.map((sub) => {
                             const SubIcon = sub.icon;
                             return (
