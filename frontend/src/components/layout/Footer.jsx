@@ -147,6 +147,11 @@ export default function Footer() {
                   Careers <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </Link>
               </li>
+              <li>
+                <Link to="/apply-now" className="hover:text-[#0A8FB6] transition-colors flex items-center gap-1 group font-semibold text-[#034665]">
+                  Apply Now <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity text-[#0A8FB6]" />
+                </Link>
+              </li>
             </ul>
           </div>
 

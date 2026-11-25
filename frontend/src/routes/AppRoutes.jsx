@@ -10,6 +10,7 @@ import Team from '../pages/Team';
 import Careers from '../pages/Careers';
 import Contact from '../pages/Contact';
 import StaffAugmentation from '../pages/StaffAugmentation';
+import ApplyNow from '../pages/ApplyNow';
 import NotFound from '../pages/NotFound';
 
 export default function AppRoutes() {
@@ -25,6 +26,8 @@ export default function AppRoutes() {
         <Route path="hire/*" element={<StaffAugmentation />} />
         <Route path="team" element={<Team />} />
         <Route path="careers" element={<Careers />} />
+        <Route path="apply-now" element={<ApplyNow />} />
+        <Route path="apply" element={<ApplyNow />} />
         <Route path="contact" element={<Contact />} />
         <Route path="*" element={<NotFound />} />
       </Route>

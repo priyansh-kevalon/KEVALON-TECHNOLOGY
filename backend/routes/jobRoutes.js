@@ -4,6 +4,8 @@ import { submitApplication, getAllApplications } from '../controllers/jobControl
 const router = express.Router();
 
 router.post('/apply', submitApplication);
+router.post('/', submitApplication);
 router.get('/applications', getAllApplications);
+router.get('/', getAllApplications);
 
 export default router;

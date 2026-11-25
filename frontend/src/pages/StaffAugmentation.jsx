@@ -27,7 +27,7 @@ import {
   Building2,
   Code2,
 } from 'lucide-react';
-import axios from 'axios';
+import api from '../services/api';
 
 // Talent Roles Grid Data
 const talentRoles = [
@@ -356,7 +356,7 @@ export default function StaffAugmentation() {
 
     setLoading(true);
     try {
-      await axios.post('http://localhost:5000/api/contact', {
+      await api.post('/contact', {
         name: formData.name.trim(),
         email: formData.email.trim(),
         phone: formData.phone.trim(),

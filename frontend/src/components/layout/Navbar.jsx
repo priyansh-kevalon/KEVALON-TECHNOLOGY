@@ -130,9 +130,9 @@ export default function Navbar() {
         <div className="absolute right-0 top-0 h-full w-12 sm:w-20 bg-gradient-to-l from-[#034665] to-transparent z-10 pointer-events-none" />
 
         <Link
-          to="/careers"
+          to="/apply-now"
           className="flex items-center h-full group cursor-pointer"
-          title="Click to explore internships & career opportunities"
+          title="Click to apply now"
         >
           <div className="animate-ticker flex items-center whitespace-nowrap">
             {[...tickerItems, ...tickerItems].map((text, idx) => (
@@ -315,15 +315,14 @@ export default function Navbar() {
               })}
             </nav>
 
-            {/* Action Button: Apply Now / Hire Talent */}
+            {/* Action Button: Apply Now */}
             <div className="hidden sm:flex items-center gap-2.5">
               <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}>
                 <Link
-                  to="/staff-augmentation#consultation"
-                  className="kevalon-btn-primary text-xs !px-5 !py-2.5 flex items-center gap-2 font-bold tracking-wider uppercase text-white shadow-btn-teal"
+                  to="/apply-now"
+                  className="rounded-full px-5 py-2 text-xs sm:text-[13px] font-semibold text-white whitespace-nowrap transition-all duration-300 hover:-translate-y-0.5 hover:scale-[1.03] hover:shadow-[0_10px_24px_rgba(3,70,101,0.28)] bg-[linear-gradient(137.68deg,#61BBC5_0.13%,#034665_100%)] flex items-center gap-1.5"
                 >
-                  <Sparkles className="w-3.5 h-3.5 text-[#E0F4F7]" />
-                  <span>Hire Talent</span>
+                  <span>Apply Now</span>
                 </Link>
               </motion.div>
             </div>
@@ -430,11 +429,11 @@ export default function Navbar() {
 
               <div className="pt-3 border-t border-slate-100 space-y-2">
                 <Link
-                  to="/staff-augmentation#consultation"
-                  className="kevalon-btn-primary w-full text-center text-xs py-3 flex items-center justify-center gap-2 font-bold tracking-wider uppercase text-white shadow-btn-teal"
+                  to="/apply-now"
+                  className="rounded-full w-full py-3 text-center text-xs uppercase tracking-wider font-bold text-white shadow-md bg-[linear-gradient(137.68deg,#61BBC5_0.13%,#034665_100%)] flex items-center justify-center gap-2"
                 >
-                  <Sparkles className="w-3.5 h-3.5 text-white" />
-                  <span>Hire Dedicated Talent</span>
+                  <span>Apply Now</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
                 <Link
                   to="/contact"

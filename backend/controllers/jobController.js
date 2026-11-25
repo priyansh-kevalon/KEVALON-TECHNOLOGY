@@ -8,13 +8,17 @@ export const submitApplication = async (req, res) => {
       email,
       phone,
       linkedinUrl,
+      linkedInProfile,
       portfolioUrl,
       roleApplied,
+      role,
       resumeFileName,
       resumeUrl,
     } = req.body;
 
-    if (!firstName || !lastName || !email || !phone || !roleApplied) {
+    const chosenRole = roleApplied || role;
+
+    if (!firstName || !lastName || !email || !phone || !chosenRole) {
       return res.status(400).json({
         success: false,
         message: 'Please provide all required fields: First Name, Last Name, Email, Phone, and Role Applied.',
@@ -26,11 +30,11 @@ export const submitApplication = async (req, res) => {
       lastName,
       email,
       phone,
-      linkedinUrl: linkedinUrl || '',
+      linkedinUrl: linkedinUrl || linkedInProfile || '',
       portfolioUrl: portfolioUrl || '',
-      roleApplied,
-      resumeFileName: resumeFileName || '',
-      resumeUrl: resumeUrl || '',
+      roleApplied: chosenRole,
+      resumeFileName: resumeFileName || (req.file ? req.file.originalname : ''),
+      resumeUrl: resumeUrl || (req.file ? `/uploads/${req.file.filename}` : ''),
     });
 
     await application.save();

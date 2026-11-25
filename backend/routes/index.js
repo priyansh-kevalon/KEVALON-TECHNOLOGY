@@ -25,5 +25,6 @@ router.use('/contact', contactRoutes);
 router.use('/services', serviceRoutes);
 router.use('/jobs', jobRoutes);
 router.use('/careers', jobRoutes);
+router.use('/applications', jobRoutes);
 
 export default router;

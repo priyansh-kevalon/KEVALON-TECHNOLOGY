@@ -1,7 +1,21 @@
 import axios from 'axios';
 
+// Base URL resolution:
+// 1. Explicit environment variable: VITE_API_BASE_URL (e.g. https://kevalon-backend.onrender.com/api)
+// 2. Production default: '/api' (relative path, works seamlessly on Render unified deployment)
+// 3. Development default: 'http://localhost:5000/api'
+const getBaseURL = () => {
+  if (import.meta.env.VITE_API_BASE_URL) {
+    return import.meta.env.VITE_API_BASE_URL;
+  }
+  if (import.meta.env.PROD) {
+    return '/api';
+  }
+  return 'http://localhost:5000/api';
+};
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api',
+  baseURL: getBaseURL(),
   timeout: 15000,
   headers: {
     'Content-Type': 'application/json',
@@ -11,7 +25,6 @@ const api = axios.create({
 // Request interceptor
 api.interceptors.request.use(
   (config) => {
-    // Inject auth token here if needed in the future
     return config;
   },
   (error) => {

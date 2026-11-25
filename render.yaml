@@ -1,0 +1,22 @@
+services:
+  # ========================================================
+  # Unified Full-Stack Service for Kevalon Technology on Render
+  # Runs both React Frontend (Vite) and Node.js/Express Backend + MongoDB
+  # ========================================================
+  - type: web
+    name: kevalon-technology-web
+    env: node
+    plan: free
+    region: oregon
+    buildCommand: npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: MONGO_URI
+        value: mongodb+srv://priyanshkevalon_db_user:6AiJiHX8JVquD0DB@cluster0.xg6lncl.mongodb.net/kevalon_technology?retryWrites=true&w=majority
+      - key: CLIENT_URL
+        value: https://kevalon-technology-web.onrender.com
